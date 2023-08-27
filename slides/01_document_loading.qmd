@@ -94,7 +94,6 @@ pages = loader.load()
 ## Inspect data {.smaller}
 
 ```{python}
-# | output-location: fragment
 len(pages)
 ```
 
@@ -110,7 +109,6 @@ page = pages[0]
 
 
 ```{python}
-# | output-location: fragment
 page.metadata
 ```
 
@@ -121,7 +119,6 @@ page.metadata
 
 
 ```{python}
-# | output-location: fragment
 print(page.page_content[0:500])
 ```
 
@@ -148,7 +145,9 @@ Let's load the "Code Report" about Vector databases from Fireship
 {{< video https://www.youtube.com/embed/klTvEwg3oJ4?si=VPuxdiw9QaWfIqbD>}}
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/klTvEwg3oJ4?si=VPuxdiw9QaWfIqbD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<!---
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/klTvEwg3oJ4?si=VPuxdiw9QaWfIqbD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
+--->
 
 ## Load YouTube video
 
@@ -172,7 +171,6 @@ docs = loader.load()
 ## Inspect data
 
 ```{python}
-# | output-location: fragment
 docs[0].page_content[0:500]
 ```
 
@@ -183,7 +181,6 @@ docs[0].page_content[0:500]
 
 
 ```{python}
-# | output-location: fragment
 df = pd.DataFrame(docs, columns=['Text', 'Metadata'])
 ```
 
@@ -214,7 +211,6 @@ docs = loader.load()
 ## Inspact data
 
 ```{python}
-# | output-location: fragment
 print(docs[0].page_content[400:800])
 ```
 
@@ -226,7 +222,6 @@ A good question to ask oneself before working with the data at all is, "H
 
 
 ```{python}
-# | output-location: fragment
 df = pd.DataFrame(docs, columns=['Text', 'Metadata'])
 ```
 
@@ -242,11 +237,11 @@ df.to_csv('../docs/url/study-design.csv')
 
 ## Example
 
-- Follow the steps [here](https://python.langchain.com/docs/modules/data_connection/document_loaders/integrations/notion) for an example Notion site such as [this one](https://yolospace.notion.site/Blendle-s-Employee-Handbook-e31bff7da17346ee99f531087d8b133f):
+- Option 1: Simply use the example data provided in `langchain-intro/docs/Notion_DB` 
 
-- Duplicate the page into your own Notion space and export as `Markdown / CSV`.
-
-- Unzip it and save it as a folder that contains the markdown file for the Notion page.
+- Option 2: Follow the steps [here](https://python.langchain.com/docs/modules/data_connection/document_loaders/integrations/notion) for an example Notion site such as [this one](https://yolospace.notion.site/Blendle-s-Employee-Handbook-e31bff7da17346ee99f531087d8b133f)
+  - Duplicate the page into your own Notion space and export as `Markdown / CSV`.
+  - Unzip it and save it as a folder that contains the markdown file for the Notion page.
  
 ## Load Notion
 
@@ -258,7 +253,6 @@ docs = loader.load()
 ## Inspect data
 
 ```{python}
-# | output-location: fragment
 print(docs[0].page_content[0:200])
 ```
 
@@ -278,7 +272,6 @@ Here are the basics:
 
 
 ```{python}
-# | output-location: fragment
 docs[0].metadata
 ```
 
