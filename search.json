@@ -4,7 +4,7 @@
     "href": "requirements.html",
     "title": "Requirements",
     "section": "",
-    "text": "To start this lab, you’ll need the following environments:\n\n\n\n\n\n\nImportant\n\n\n\nVisit the “Programming Toolkit-webpage” to learn how to meet all requirements.\n\n\n\nPython: Anaconda, Anaconda Environment langchain and Visual Studio Code\nEnvironment: A folder on your machine called langchain-intro and an environment file with your OpenAI password"
+    "text": "To start this lab, you’ll need the following environments:\n\n\n\n\n\n\nImportant\n\n\n\nVisit the “Programming Toolkit-webpage” to learn how to meet all requirements.\n\n\n\nPython: Anaconda, Anaconda Environment langchain and Visual Studio Code\nEnvironment: Use this folder template: langchain-intro and insert your OpenAI API key in the .env file."
   },
   {
     "objectID": "slides/01_document_loading.html#python",
@@ -39,7 +39,7 @@
     "href": "slides/01_document_loading.html#inspect-data",
     "title": "Document Loading",
     "section": "Inspect data",
-    "text": "Inspect data\n\nlen(pages)\n\n\n\n\n22 . . .\n\npage = pages[0]\n\n\n\npage.metadata\n\n\n\n\n\n{‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture01.pdf’, ‘page’: 0}"
+    "text": "Inspect data\n\nlen(pages)\n\n\n\n\n\n22\n\n\n\npage = pages[0]\n\n\n\n\npage.metadata\n\n\n\n\n\n{‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture01.pdf’, ‘page’: 0}"
   },
   {
     "objectID": "slides/01_document_loading.html#inspect-content",
