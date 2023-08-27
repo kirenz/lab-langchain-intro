@@ -3,7 +3,7 @@ title: "Slides"
 number-sections: true
 ---
 
-*The following tutorials are mainly based on the excellent course ["LangChain: Chat with Your DataI"](https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/) provided by Harrison Chase from LangChain and Andrew Ng from DeepLearning.AI.*
+*The following tutorials are mainly based on the excellent course ["LangChain: Chat with Your DataI"](https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/) provided by Harrison Chase from LangChain and Andrew Ng from DeepLearning.AI and cover the following topics:*
 
 
 ![](/images/rag.png)
@@ -43,6 +43,30 @@ Learn the concept of embeddings and explore vector store integrations within Lan
 - [💻 Jupyter Notebook]()
 :::
 
-- Retrieval: Grasp advanced techniques for accessing and indexing data in the vector store, enabling you to retrieve the most relevant information beyond semantic queries.
-- Question Answering: Build a one-pass question-answering solution.
-- Chat: Learn how to track and select pertinent information from conversations and data sources, as you build your own chatbot using LangChain.
+## Retrieval
+
+Learn advanced techniques for accessing and indexing data in the vector store, enabling you to retrieve the most relevant information beyond semantic queries:
+
+::: {.callout-tip appearance="simple" icon=false}
+- [🖥️ Presentation](/slides/04_retrieval.qmd)
+- [💻 Jupyter Notebook]()
+:::
+
+
+## Question Answering
+
+Build a one-pass question-answering solution.
+
+::: {.callout-tip appearance="simple" icon=false}
+- [🖥️ Presentation](/slides/05_question_answering.qmd)
+- [💻 Jupyter Notebook]()
+:::
+
+## Chat System
+
+Learn how to track and select pertinent information from conversations and data sources, as you build your own chatbot using LangChain.
+
+::: {.callout-tip appearance="simple" icon=false}
+- [🖥️ Presentation](/slides/06_chat.qmd)
+- [💻 Jupyter Notebook]()
+:::
