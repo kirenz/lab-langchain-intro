@@ -1,0 +1,149 @@
+[
+  {
+    "objectID": "slides/01_document_loading.html#python",
+    "href": "slides/01_document_loading.html#python",
+    "title": "Document Loading",
+    "section": "Python",
+    "text": "Python\n\nfrom langchain.document_loaders import NotionDirectoryLoader\nfrom langchain.document_loaders import WebBaseLoader\nimport pandas as pd\nfrom langchain.document_loaders.blob_loaders.youtube_audio import YoutubeAudioLoader\nfrom langchain.document_loaders.parsers import OpenAIWhisperParser\nfrom langchain.document_loaders.generic import GenericLoader\nfrom langchain.document_loaders import PyPDFLoader\nfrom dotenv import load_dotenv, find_dotenv\nimport os\nimport openai\n# import sys\n# sys.path.append('../..')\n\n_ = load_dotenv(find_dotenv())  # read local .env file\n\nopenai.api_key = os.environ['OPENAI_API_KEY']"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#basics",
+    "href": "slides/01_document_loading.html#basics",
+    "title": "Document Loading",
+    "section": "Basics",
+    "text": "Basics\n\nIn retrieval augmented generation (RAG), an LLM retrieves contextual documents from an external dataset as part of its execution.\nThis is useful if we want to ask question about specific documents (e.g., our PDFs, a set of videos, etc)."
+  },
+  {
+    "objectID": "slides/01_document_loading.html#example",
+    "href": "slides/01_document_loading.html#example",
+    "title": "Document Loading",
+    "section": "Example",
+    "text": "Example\n\nLet’s load a PDF transcript from one of Andrew Ng’s courses\nThese documents are the result of automated transcription so words and sentences are sometimes split unexpectedly."
+  },
+  {
+    "objectID": "slides/01_document_loading.html#load-pdf",
+    "href": "slides/01_document_loading.html#load-pdf",
+    "title": "Document Loading",
+    "section": "Load PDF",
+    "text": "Load PDF\n\nloader = PyPDFLoader(\"../docs/cs229_lectures/MachineLearning-Lecture01.pdf\")\npages = loader.load()\n\n\nEach page is a Document.\nA Document contains text (page_content) and metadata."
+  },
+  {
+    "objectID": "slides/01_document_loading.html#inspect-data",
+    "href": "slides/01_document_loading.html#inspect-data",
+    "title": "Document Loading",
+    "section": "Inspect data",
+    "text": "Inspect data\n\nlen(pages)\n\n\n\n\n22 . . .\n\npage = pages[0]\n\n\n\npage.metadata\n\n\n\n\n\n{‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture01.pdf’, ‘page’: 0}"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#inspect-content",
+    "href": "slides/01_document_loading.html#inspect-content",
+    "title": "Document Loading",
+    "section": "Inspect content",
+    "text": "Inspect content\n\nprint(page.page_content[0:500])\n\n\n\n\n\nMachineLearning-Lecture01\nInstructor (Andrew Ng): Okay. Good morning. Welcome to CS229, the machine learning class. So what I wanna do today is ju st spend a little time going over the logistics of the class, and then we’ll start to talk a bit about machine learning.\nBy way of introduction, my name’s Andrew Ng and I’ll be instru ctor for this class. And so I personally work in machine learning, and I’ ve worked on it for about 15 years now, and I actually think that machine learning i"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#prerequisites",
+    "href": "slides/01_document_loading.html#prerequisites",
+    "title": "Document Loading",
+    "section": "Prerequisites",
+    "text": "Prerequisites\n\nYou need FFmpeg\nMac: install with Homebrew"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#example-1",
+    "href": "slides/01_document_loading.html#example-1",
+    "title": "Document Loading",
+    "section": "Example",
+    "text": "Example\nLet’s load the “Code Report” about Vector databases from Fireship"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#load-youtube-video",
+    "href": "slides/01_document_loading.html#load-youtube-video",
+    "title": "Document Loading",
+    "section": "Load YouTube video",
+    "text": "Load YouTube video\n\n# link to video\nurl = \"https://www.youtube.com/watch?v=klTvEwg3oJ4\"\n\n# path to directory\nsave_dir = \"../docs/youtube/\"\n\n# load video\nloader = GenericLoader(\n    YoutubeAudioLoader([url], save_dir),\n    OpenAIWhisperParser()\n)\n\ndocs = loader.load()"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#inspect-data-1",
+    "href": "slides/01_document_loading.html#inspect-data-1",
+    "title": "Document Loading",
+    "section": "Inspect data",
+    "text": "Inspect data\n\ndocs[0].page_content[0:500]\n\n\n\n\n\n“It is April 7th, 2023, and you’re watching The Code Report. One month ago, Vector Database Weaviate landed $16 million in Series A funding. Last week, PineconeDB just got a check for $28 million at a $700 million valuation. And yesterday, Chroma, an open source project with only 1.2 GitHub stars, raised $18 million for its Embeddings database. And I just launched my own Vector database this morning. We’re currently pre-revenue, pre-vision, and pre-code, and valued at $420 million. Leave your cre”"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#save-as-dataframe",
+    "href": "slides/01_document_loading.html#save-as-dataframe",
+    "title": "Document Loading",
+    "section": "Save as DataFrame",
+    "text": "Save as DataFrame\n\ndf = pd.DataFrame(docs, columns=['Text', 'Metadata'])"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#save-as-csv",
+    "href": "slides/01_document_loading.html#save-as-csv",
+    "title": "Document Loading",
+    "section": "Save as CSV",
+    "text": "Save as CSV\n\ndf.to_csv('../docs/youtube/codereport.csv')"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#example-2",
+    "href": "slides/01_document_loading.html#example-2",
+    "title": "Document Loading",
+    "section": "Example",
+    "text": "Example\n\nLet’s load a page from “Introduction to Modern Statistics” by Mine Çetinkaya-Rundel and Johanna Hardin: https://openintro-ims.netlify.app/data-design\nThe raw file is provided in GutHub under this URL: https://raw.githubusercontent.com/OpenIntroStat/ims/main/02-data-design.qmd"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#load-url",
+    "href": "slides/01_document_loading.html#load-url",
+    "title": "Document Loading",
+    "section": "Load URL",
+    "text": "Load URL\n\nloader = WebBaseLoader(\n    \"https://raw.githubusercontent.com/OpenIntroStat/ims/main/02-data-design.qmd\")\n\ndocs = loader.load()"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#inspact-data",
+    "href": "slides/01_document_loading.html#inspact-data",
+    "title": "Document Loading",
+    "section": "Inspact data",
+    "text": "Inspact data\n\nprint(docs[0].page_content[400:800])\n\n\n\n\n\nampling. Knowing how the observational units were selected from a larger entity will allow for generalizations back to the population from which the data were randomly selected. Additionally, by understanding the structure of the study, causal relationships can be separated from those relationships which are only associated. A good question to ask oneself before working with the data at all is, “H"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#save-as-dataframe-1",
+    "href": "slides/01_document_loading.html#save-as-dataframe-1",
+    "title": "Document Loading",
+    "section": "Save as DataFrame",
+    "text": "Save as DataFrame\n\ndf = pd.DataFrame(docs, columns=['Text', 'Metadata'])"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#save-as-csv-1",
+    "href": "slides/01_document_loading.html#save-as-csv-1",
+    "title": "Document Loading",
+    "section": "Save as CSV",
+    "text": "Save as CSV\n\ndf.to_csv('../docs/url/study-design.csv')"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#example-3",
+    "href": "slides/01_document_loading.html#example-3",
+    "title": "Document Loading",
+    "section": "Example",
+    "text": "Example\n\nFollow the steps here for an example Notion site such as this one:\nDuplicate the page into your own Notion space and export as Markdown / CSV.\nUnzip it and save it as a folder that contains the markdown file for the Notion page."
+  },
+  {
+    "objectID": "slides/01_document_loading.html#load-notion",
+    "href": "slides/01_document_loading.html#load-notion",
+    "title": "Document Loading",
+    "section": "Load Notion",
+    "text": "Load Notion\n\nloader = NotionDirectoryLoader(\"../docs/Notion_DB\")\ndocs = loader.load()"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#inspect-data-2",
+    "href": "slides/01_document_loading.html#inspect-data-2",
+    "title": "Document Loading",
+    "section": "Inspect data",
+    "text": "Inspect data\n\nprint(docs[0].page_content[0:200])\n\n\n\n\n# Getting Started\n\n👋 Welcome to Notion!\n\nHere are the basics:\n\n- [ ]  Click anywhere and just start typing\n- [ ]  Hit `/` to see all the types of content you can add - headers, videos, sub pages, etc."
+  },
+  {
+    "objectID": "slides/01_document_loading.html#inspect-data-3",
+    "href": "slides/01_document_loading.html#inspect-data-3",
+    "title": "Document Loading",
+    "section": "Inspect data",
+    "text": "Inspect data\n\ndocs[0].metadata\n\n\n\n\n\n{‘source’: ‘../docs/Notion_DB/Getting Started 95e5ecbe48c44e408ef09fed850fbd40.md’}"
+  }
+]
