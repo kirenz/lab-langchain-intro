@@ -35,6 +35,8 @@ format:
 
 # Document Splitting
 
+Discover the best practices and considerations for splitting data.
+
 # Setup
 
 ## Python
@@ -63,7 +65,7 @@ openai.api_key = os.environ['OPENAI_API_KEY']
 ## Character Text Splitter
 
 ```{python}
-chunk_size =26
+chunk_size = 26
 chunk_overlap = 4
 ```
 
@@ -92,10 +94,11 @@ c_splitter = CharacterTextSplitter(
 ```{python}
 text1 = 'abcdefghijklmnopqrstuvwxyz'
 ```
+
 . . .
 
 ```{python}
-# | output-location: fragment
+
 r_splitter.split_text(text1)
 ```
 
@@ -110,7 +113,7 @@ text2 = 'abcdefghijklmnopqrstuvwxyzabcdefg'
 . . .
 
 ```{python}
-# | output-location: fragment
+
 r_splitter.split_text(text2)
 ```
 
@@ -126,7 +129,7 @@ text3 = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
 . . .
 
 ```{python}
-# | output-location: fragment
+
 r_splitter.split_text(text3)
 ```
 
@@ -136,7 +139,7 @@ r_splitter.split_text(text3)
 
 
 ```{python}
-# | output-location: fragment
+
 c_splitter.split_text(text3)
 ```
 
@@ -153,7 +156,7 @@ c_splitter = CharacterTextSplitter(
 ```
 
 ```{python}
-# | output-location: fragment
+
 
 c_splitter.split_text(text3)
 ```
@@ -202,7 +205,7 @@ r_splitter = RecursiveCharacterTextSplitter(
 ## Character Splitter output
 
 ```{python}
-# | output-location: fragment
+
 c_splitter.split_text(some_text)
 ```
 
@@ -213,7 +216,7 @@ c_splitter.split_text(some_text)
 
 
 ```{python}
-# | output-location: fragment
+
 r_splitter.split_text(some_text)
 ```
 
@@ -236,7 +239,7 @@ r_splitter = RecursiveCharacterTextSplitter(
 . . .
 
 ```{python}
-# | output-location: fragment
+
 r_splitter.split_text(some_text)
 ```
 
@@ -260,7 +263,7 @@ r_splitter.split_text(some_text)
 . . .
 
 ```{python}
-# | output-location: fragment
+
 r_splitter.split_text(some_text)
 ```
 
@@ -300,15 +303,16 @@ docs = text_splitter.split_documents(pages)
 ## Inspect data
 
 ```{python}
-# | output-location: fragment
+
 len(docs)
 ```
 
 - 77
+
 . . .
 
 ```{python}
-# | output-location: fragment
+
 len(pages)
 ```
 
@@ -357,15 +361,16 @@ docs = text_splitter.split_documents(notion_db)
 ## Inspect data
 
 ```{python}
-# | output-location: fragment
+
 len(notion_db)
 ```
 
 - 1
+
 . . .
 
 ```{python}
-# | output-location: fragment
+
 
 len(docs)
 ```
@@ -415,7 +420,7 @@ Here are the basics:
 text_splitter = TokenTextSplitter(chunk_size=1, chunk_overlap=0)
 ```
 
-## Split text 
+. . .
 
 ```{python}
 text1 = "foo bar bazzyfoo"
@@ -424,27 +429,30 @@ text1 = "foo bar bazzyfoo"
 . . .
 
 ```{python}
-# | output-location: fragment
+
 text_splitter.split_text(text1)
 ```
 
 - ['foo', ' bar', ' b', 'az', 'zy', 'foo']
 
-## TokenTextSplitter 2
+## TokenTextSplitter 2 {.smaller}
 
 
 ```{python}
 text_splitter = TokenTextSplitter(chunk_size=10, chunk_overlap=0)
 ```
 
-## Split text
+. . .
+
 
 ```{python}
 docs = text_splitter.split_documents(pages)
 ```
 
+. . .
+
 ```{python}
-# | output-location: fragment
+
 docs[0]
 ```
 
@@ -453,7 +461,7 @@ docs[0]
 . . .
 
 ```{python}
-# | output-location: fragment
+
 pages[0].metadata
 ```
 
@@ -507,23 +515,27 @@ md_header_splits = markdown_splitter.split_text(markdown_document)
 
 . . .
 
+
 ```{python}
-# | output-location: fragment
+
 
 md_header_splits[0]
 ```
 
+
 - Document(page_content='Hi this is Jim  \nHi this is Joe', metadata={'Header 1': 'Title', 'Header 2': 'Chapter 1'})
 
+. . .
+
 ```{python}
-# | output-location: fragment
+
 
 md_header_splits[1]
 ```
 
 - Document(page_content='Hi this is Lance', metadata={'Header 1': 'Title', 'Header 2': 'Chapter 1', 'Header 3': 'Section'})
 
-## Splitting Notion Markdown
+# Splitting Notion Markdown
 
 ## Load data
 
@@ -537,7 +549,7 @@ docs = loader.load()
 ## Join data {.smaller}
 
 ```{python}
-# | output-location: fragment
+
 
 txt = ' '.join([d.page_content for d in docs])
 txt
@@ -571,7 +583,7 @@ md_header_splits = markdown_splitter.split_text(txt)
 ## Output {.smaller}
 
 ```{python}
-# | output-location: fragment
+
 md_header_splits[0]
 ```
 
