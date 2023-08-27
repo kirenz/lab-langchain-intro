@@ -98,7 +98,8 @@ pages = loader.load()
 len(pages)
 ```
 
-22
+- 22
+
 . . .
 
 ```{python}
@@ -144,8 +145,10 @@ I actually think that machine learning i
 
 Let's load the "Code Report" about Vector databases from Fireship
 
-{{< video https://www.youtube.com/embed/klTvEwg3oJ4?si=lYpKZvQ51qz5J6-a>}}
+{{< video https://www.youtube.com/embed/klTvEwg3oJ4?si=VPuxdiw9QaWfIqbD>}}
 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/klTvEwg3oJ4?si=VPuxdiw9QaWfIqbD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Load YouTube video
 
