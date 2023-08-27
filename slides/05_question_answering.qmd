@@ -1,0 +1,295 @@
+---
+title: Question Answering
+title-slide-attributes:
+  data-background-image: ../images/logo.png
+  data-background-size: contain
+  data-background-opacity: "0.5"
+lang: en
+subtitle: LangChain Tutorial 5
+author: Jan Kirenz
+execute:
+  eval: false
+  echo: true
+highlight-style: github
+format:
+  revealjs: 
+    toc: true
+    toc-depth: 1
+    embed-resources: false
+    theme: [dark, ../custom.scss]  
+    incremental: true
+    transition: slide
+    background-transition: fade
+    transition-speed: slow
+    code-copy: true
+    code-line-numbers: true
+    smaller: false
+    scrollable: true
+    slide-number: c
+    preview-links: auto
+    chalkboard: 
+      buttons: false
+   # logo: ../images/logo.png
+    footer: Jan Kirenz
+---
+
+# Question Answering
+
+
+# Setup
+
+## Python
+
+
+```{python}
+
+from langchain.prompts import PromptTemplate
+from langchain.chains import RetrievalQA
+from langchain.chat_models import ChatOpenAI
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores import Chroma
+import datetime
+from dotenv import load_dotenv, find_dotenv
+import os
+import openai
+# import sys
+# sys.path.append('../..')
+
+_ = load_dotenv(find_dotenv())  # read local .env file
+
+openai.api_key = os.environ['OPENAI_API_KEY']
+```
+
+
+
+# RetrievalQA chain
+
+## Vector Database setup
+
+```{python}
+persist_directory = '../docs/chroma/'
+embedding = OpenAIEmbeddings()
+vectordb = Chroma(persist_directory=persist_directory,
+                  embedding_function=embedding)
+```
+
+```{python}
+print(vectordb._collection.count())
+```
+
+- 209
+
+## Question and similarity search
+
+```{python}
+question = "What are major topics for this class?"
+
+docs = vectordb.similarity_search(question, k=3)
+
+len(docs)
+```
+
+- 3
+
+## ChatOpenAI model
+
+```{python}
+
+llm_name = "gpt-3.5-turbo"
+
+llm = ChatOpenAI(model_name=llm_name, temperature=0)
+```
+
+## RetrievalQA chain
+
+```{python}
+qa_chain = RetrievalQA.from_chain_type(
+    llm,
+    retriever=vectordb.as_retriever()
+)
+```
+
+## Result
+
+```{python}
+result = qa_chain({"query": question})
+```
+
+. . . 
+
+```{python}
+result["result"]
+```
+
+
+- 'The major topics for this class are machine learning and its various extensions.'
+
+# RetrievalQA chain with Template
+
+## Prompt template
+
+```{python}
+template = """Use the following pieces of context to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer. Use three sentences maximum. Keep the answer as concise as possible. Always say "thanks for asking!" at the end of the answer. 
+{context}
+Question: {question}
+Helpful Answer:"""
+
+QA_CHAIN_PROMPT = PromptTemplate.from_template(template)
+```
+
+## Question answer chain 
+
+
+```{python}
+qa_chain = RetrievalQA.from_chain_type(
+    llm,
+    retriever=vectordb.as_retriever(),
+    return_source_documents=True,
+    chain_type_kwargs={"prompt": QA_CHAIN_PROMPT}
+)
+```
+
+## Question and result
+
+```{python}
+question = "Is probability a class topic?"
+```
+
+. . .
+
+```{python}
+result = qa_chain({"query": question})
+```
+
+. . .
+
+```{python}
+result["result"]
+```
+
+- 'Yes, probability is a class topic. Thanks for asking!'
+
+## Source documents
+
+```{python}
+
+result["source_documents"][0]
+```
+
+- Document(page_content="of this class will not be very program ming intensive, although we will do some \nprogramming, mostly in either MATLAB or Octa ve. I'll say a bit more about that later.  \nI also assume familiarity with basic proba bility and statistics. So most undergraduate \nstatistics class, like Stat 116 taught here at Stanford, will be more than enough. I'm gonna \nassume all of you know what ra ndom variables are, that all of you know what expectation \nis, what a variance or a random variable is. And in case of some of you, it's been a while \nsince you've seen some of this material. At some of the discussion sections, we'll actually \ngo over some of the prerequisites, sort of as  a refresher course under prerequisite class. \nI'll say a bit more about that later as well.  \nLastly, I also assume familiarity with basi c linear algebra. And again, most undergraduate \nlinear algebra courses are more than enough. So if you've taken courses like Math 51, \n103, Math 113 or CS205 at Stanford, that would be more than enough. Basically, I'm \ngonna assume that all of you know what matrix es and vectors are, that you know how to \nmultiply matrices and vectors and multiply matrix and matrices, that you know what a matrix inverse is. If you know what an eigenvect or of a matrix is, that'd be even better. \nBut if you don't quite know or if you're not qu ite sure, that's fine, too. We'll go over it in \nthe review sections.", metadata={'source': '../docs/cs229_lectures/MachineLearning-Lecture01.pdf', 'page': 4})
+
+# RetrievalQA Chain Types
+
+## Map Reduce
+
+```{python}
+
+qa_chain_mr = RetrievalQA.from_chain_type(
+    llm,
+    retriever=vectordb.as_retriever(),
+    chain_type="map_reduce"
+)
+```
+
+## Result
+
+```{python}
+
+result = qa_chain_mr({"query": question})
+```
+
+. . .
+
+```{python}
+
+result["result"]
+```
+
+- 'There is no mention of probability as a class topic in the provided text.'
+
+# LangChain plus platform
+
+## Basics
+
+- If you wish to experiment on the `LangChain plus platform`:
+  - Go to [langchain plus platform](https://www.langchain.plus/) and sign up
+  - Create an API key from your account's settings
+  - Use this API key in the code below   
+  - uncomment the code  
+
+## Code
+
+```{python}
+# os.environ["LANGCHAIN_TRACING_V2"] = "true"
+# os.environ["LANGCHAIN_ENDPOINT"] = "https://api.langchain.plus"
+# os.environ["LANGCHAIN_API_KEY"] = "..."  # replace dots with your api key
+```
+
+```{python}
+# qa_chain_mr = RetrievalQA.from_chain_type(
+#     llm,
+#     retriever=vectordb.as_retriever(),
+#     chain_type="map_reduce"
+# )
+# result = qa_chain_mr({"query": question})
+# result["result"]
+```
+
+```{python}
+# qa_chain_mr = RetrievalQA.from_chain_type(
+#     llm,
+#     retriever=vectordb.as_retriever(),
+#     chain_type="refine"
+# )
+# result = qa_chain_mr({"query": question})
+# result["result"]
+```
+
+# RetrievalQA Limitations
+ 
+## Conversational history
+
+- QA fails to preserve conversational history.
+
+```{python}
+qa_chain = RetrievalQA.from_chain_type(
+    llm,
+    retriever=vectordb.as_retriever()
+)
+```
+
+```{python}
+
+question = "Is probability a class topic?"
+result = qa_chain({"query": question})
+result["result"]
+```
+
+- 'Yes, probability is a topic that will be covered in this class. The instructor assumes familiarity with basic probability and statistics.'
+
+```{python}
+question = "why are those prerequesites needed?"
+result = qa_chain({"query": question})
+result["result"]
+```
+
+- 'The prerequisites are needed because they provide the foundational knowledge and skills necessary to understand and apply machine learning algorithms. \n\nBasic knowledge of computer science and computer skills is important because machine learning algorithms often involve programming and working with data. Understanding concepts like big-O notation helps in analyzing the efficiency and scalability of algorithms.\n\nFamiliarity with probability and statistics is necessary because machine learning involves working with data and making predictions based on statistical models. Understanding concepts like random variables, expectation, and variance is crucial in understanding and evaluating machine learning algorithms.\n\nBasic knowledge of linear algebra is important because many machine learning algorithms involve manipulating matrices and vectors. Understanding concepts like matrix multiplication, matrix inverse, and eigenvectors is essential in understanding and implementing these algorithms.\n\nOverall, these prerequisites provide the necessary background knowledge and skills to effectively learn and apply machine learning algorithms.'
+
+## Limitations
+
+- Note, The LLM response varies. 
+
+- Some responses **do** include a reference to probability which might be gleaned from referenced documents. 
+
+- The point is simply that the model does not have access to past questions or answers, this will be covered in the next tutorial (Tutorial 6).
+
+# Acknowledgments
+
+- This tutorial is mainly based on the excellent course ["LangChain: Chat with Your DataI"](https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/) provided by Harrison Chase from LangChain and Andrew Ng from DeepLearning.AI.
+
+# What's next? {background-image="../images/logo.png" background-opacity="0.5"}
+
+**Congratulations! You have completed this tutorial** 👍
+
+
+**Next, you may want to go back to the [lab's website](https://kirenz.github.io/lab-langchain-intro/)**
