@@ -68,6 +68,8 @@ openai.api_key = os.environ['OPENAI_API_KEY']
 
 - This is useful if we want to ask question about specific documents (e.g., our PDFs, a set of videos, etc). 
 
+![](/images/rag.png)
+
 
 # PDF 
 
@@ -278,6 +280,11 @@ docs[0].metadata
 ```
 
 - {'source': '../docs/Notion_DB/Getting Started 95e5ecbe48c44e408ef09fed850fbd40.md'}
+
+
+# Acknowledgments
+
+- This tutorial is mainly based on the excellent course ["LangChain: Chat with Your DataI"](https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/) provided by Harrison Chase from LangChain and Andrew Ng from DeepLearning.AI.
 
 
 # What's next? {background-image="../images/logo.png" background-opacity="0.5"}
