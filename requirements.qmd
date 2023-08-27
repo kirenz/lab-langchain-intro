@@ -8,6 +8,5 @@ To start this lab, you'll need the following environments:
 Visit the "[Programming Toolkit-webpage](https://kirenz.github.io/lab-toolkit/)" to learn how to meet all requirements.
 :::
 
-
 - **Python**: Anaconda, Anaconda Environment `langchain` and Visual Studio Code
-- **Environment**: A folder on your machine called *langchain-intro* and an environment file with your OpenAI password
+- **Environment**: Use this folder template: [*langchain-intro*](https://github.com/kirenz/lab-langchain-intro/blob/main/langchain-intro.zip) and insert your OpenAI API key in the `.env` file.  
