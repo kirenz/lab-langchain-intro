@@ -12,7 +12,7 @@
   <meta name="generator" content="quarto-1.3.450">
 
   <meta name="author" content="Jan Kirenz">
-  <title>Langchain - Vectorstore Retrieval</title>
+  <title>Langchain intro - Vectorstore Retrieval</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -425,7 +425,7 @@ Jan Kirenz
 </section>
 <section id="vectorstore-retrieval" class="title-slide slide level1 center">
 <h1>Vectorstore Retrieval</h1>
-<p>Retrieval is the centerpiece of our retrieval augmented generation (RAG) flow.</p>
+<p>Grasp advanced techniques for accessing and indexing data in the vector store, enabling you to retrieve the most relevant information beyond semantic queries.</p>
 </section>
 
 <section>
@@ -491,8 +491,8 @@ Jan Kirenz
 </ul>
 </div>
 </section>
-<section id="text" class="slide level2">
-<h2>Text</h2>
+<section id="example" class="slide level2">
+<h2>Example</h2>
 <div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>texts <span class="op">=</span> [</span>
 <span id="cb6-2"><a href="#cb6-2"></a>    <span class="st">"""The Amanita phalloides has a large and imposing epigeous (aboveground) fruiting body (basidiocarp)."""</span>,</span>
@@ -500,17 +500,15 @@ Jan Kirenz
 <span id="cb6-4"><a href="#cb6-4"></a>    <span class="st">"""A. phalloides, a.k.a Death Cap, is one of the most poisonous of all known mushrooms."""</span>,</span>
 <span id="cb6-5"><a href="#cb6-5"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="embedding" class="slide level2">
-<h2>Embedding</h2>
+<div class="fragment">
 <div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>smalldb <span class="op">=</span> Chroma.from_texts(texts, embedding<span class="op">=</span>embedding)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="question" class="slide level2">
-<h2>Question</h2>
+</div>
+<div class="fragment">
 <div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>question <span class="op">=</span> <span class="st">"Tell me about all-white mushrooms with large fruiting bodies"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section>
 <section id="result-1" class="slide level2">
@@ -549,11 +547,13 @@ Jan Kirenz
 <div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>question <span class="op">=</span> <span class="st">"what did they say about matlab?"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="similarity-search" class="slide level2">
-<h2>Similarity search</h2>
+<ul>
+<li class="fragment">Similarity search</li>
+</ul>
+<div class="fragment">
 <div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>docs_ss <span class="op">=</span> vectordb.similarity_search(question, k<span class="op">=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section>
 <section id="results" class="slide level2">
@@ -573,23 +573,22 @@ Jan Kirenz
 </ul>
 </div>
 </section>
-<section id="mmr" class="slide level2">
+<section id="mmr" class="slide level2 smaller">
 <h2>MMR</h2>
 <div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>docs_mmr <span class="op">=</span> vectordb.max_marginal_relevance_search(question, k<span class="op">=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="mmr-results" class="slide level2">
-<h2>MMR results</h2>
 <ul>
 <li class="fragment">Note the difference in results with <code>MMR</code>.</li>
 </ul>
+<div class="fragment">
 <div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>docs_mmr[<span class="dv">0</span>].page_content[:<span class="dv">100</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li class="fragment">‘those homeworks will be done in either MATLA B or in Octave, which is sort of — I some people’</li>
 </ul>
+</div>
 <div class="fragment">
 <div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>docs_mmr[<span class="dv">1</span>].page_content[:<span class="dv">100</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -618,15 +617,17 @@ Jan Kirenz
 <div class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>question <span class="op">=</span> <span class="st">"what did they say about regression in the third lecture?"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="similarity-search-1" class="slide level2">
-<h2>Similarity search</h2>
+<ul>
+<li class="fragment">Similarity search</li>
+</ul>
+<div class="fragment">
 <div class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>docs <span class="op">=</span> vectordb.similarity_search(</span>
 <span id="cb19-2"><a href="#cb19-2"></a>    question,</span>
 <span id="cb19-3"><a href="#cb19-3"></a>    k<span class="op">=</span><span class="dv">3</span>,</span>
 <span id="cb19-4"><a href="#cb19-4"></a>    <span class="bu">filter</span><span class="op">=</span>{<span class="st">"source"</span>: <span class="st">"../docs/cs229_lectures/MachineLearning-Lecture03.pdf"</span>}</span>
 <span id="cb19-5"><a href="#cb19-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section>
 <section id="result" class="slide level2">
@@ -697,15 +698,17 @@ Jan Kirenz
 <div class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>question <span class="op">=</span> <span class="st">"what did they say about regression in the third lecture?"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="retriever" class="slide level2">
-<h2>Retriever</h2>
+<ul>
+<li class="fragment">Retriever</li>
+</ul>
+<div class="fragment">
 <div class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>docs <span class="op">=</span> retriever.get_relevant_documents(question)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li class="fragment"><strong>You will receive a warning</strong> about predict_and_parse being deprecated the first time you executing the next line. This can be safely ignored.</li>
+<li class="fragment"><em>You will receive a warning</em> about predict_and_parse being deprecated the first time you executing the next line. This can be safely ignored.</li>
 </ul>
+</div>
 </section>
 <section id="result-3" class="slide level2">
 <h2>Result</h2>
@@ -713,7 +716,10 @@ Jan Kirenz
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="cf">for</span> doc <span class="kw">in</span> docs:</span>
 <span id="cb25-2"><a href="#cb25-2"></a>    <span class="bu">print</span>(doc.metadata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>{‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture03.pdf’, ‘page’: 14} {‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture03.pdf’, ‘page’: 0} {‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture03.pdf’, ‘page’: 10} {‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture03.pdf’, ‘page’: 10}</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1"></a>{'source': '../docs/cs229_lectures/MachineLearning-Lecture03.pdf', 'page': 14}</span>
+<span id="cb26-2"><a href="#cb26-2"></a>{'source': '../docs/cs229_lectures/MachineLearning-Lecture03.pdf', 'page': 0}</span>
+<span id="cb26-3"><a href="#cb26-3"></a>{'source': '../docs/cs229_lectures/MachineLearning-Lecture03.pdf', 'page': 10}</span>
+<span id="cb26-4"><a href="#cb26-4"></a>{'source': '../docs/cs229_lectures/MachineLearning-Lecture03.pdf', 'page': 10}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section></section>
 <section>
 <section id="additional-tricks-compression" class="title-slide slide level1 center">
@@ -732,59 +738,62 @@ Jan Kirenz
 <section id="helper-function-pretty-print" class="slide level2">
 <h2>Helper function: pretty print</h2>
 <div class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">def</span> pretty_print_docs(docs):</span>
-<span id="cb26-2"><a href="#cb26-2"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="sc">{</span><span class="st">'-'</span> <span class="op">*</span> <span class="dv">100</span><span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>.join([<span class="ss">f"Document </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">:</span><span class="ch">\n\n</span><span class="ss">"</span> <span class="op">+</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a>          d.page_content <span class="cf">for</span> i, d <span class="kw">in</span> <span class="bu">enumerate</span>(docs)]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw">def</span> pretty_print_docs(docs):</span>
+<span id="cb27-2"><a href="#cb27-2"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="sc">{</span><span class="st">'-'</span> <span class="op">*</span> <span class="dv">100</span><span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>.join([<span class="ss">f"Document </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">:</span><span class="ch">\n\n</span><span class="ss">"</span> <span class="op">+</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>          d.page_content <span class="cf">for</span> i, d <span class="kw">in</span> <span class="bu">enumerate</span>(docs)]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="load-llm" class="slide level2">
 <h2>Load LLM</h2>
 <div class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># Wrap our vectorstore</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a>llm <span class="op">=</span> OpenAI(temperature<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb27-3"><a href="#cb27-3"></a>compressor <span class="op">=</span> LLMChainExtractor.from_llm(llm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># Wrap our vectorstore</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>llm <span class="op">=</span> OpenAI(temperature<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb28-3"><a href="#cb28-3"></a>compressor <span class="op">=</span> LLMChainExtractor.from_llm(llm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="contextualcompressionretriever" class="slide level2">
 <h2>ContextualCompressionRetriever</h2>
 <div class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>compression_retriever <span class="op">=</span> ContextualCompressionRetriever(</span>
-<span id="cb28-2"><a href="#cb28-2"></a>    base_compressor<span class="op">=</span>compressor,</span>
-<span id="cb28-3"><a href="#cb28-3"></a>    base_retriever<span class="op">=</span>vectordb.as_retriever()</span>
-<span id="cb28-4"><a href="#cb28-4"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>compression_retriever <span class="op">=</span> ContextualCompressionRetriever(</span>
+<span id="cb29-2"><a href="#cb29-2"></a>    base_compressor<span class="op">=</span>compressor,</span>
+<span id="cb29-3"><a href="#cb29-3"></a>    base_retriever<span class="op">=</span>vectordb.as_retriever()</span>
+<span id="cb29-4"><a href="#cb29-4"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="question-about-matlab-1" class="slide level2">
 <h2>Question about matlab</h2>
 <div class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>question <span class="op">=</span> <span class="st">"what did they say about matlab?"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a>question <span class="op">=</span> <span class="st">"what did they say about matlab?"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="retriever-1" class="slide level2">
-<h2>Retriever</h2>
+<ul>
+<li class="fragment">Retriever</li>
+</ul>
+<div class="fragment">
 <div class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a>compressed_docs <span class="op">=</span> compression_retriever.get_relevant_documents(question)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a>compressed_docs <span class="op">=</span> compression_retriever.get_relevant_documents(question)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section>
-<section id="result-4" class="slide level2">
+<section id="result-4" class="slide level2 smaller">
 <h2>Result</h2>
 <div class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a>pretty_print_docs(compressed_docs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>pretty_print_docs(compressed_docs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Document 1:</p>
-</section>
-<section id="matlab-is-i-guess-part-of-the-programming-language-that-makes-it-very-easy-to-write-codes-using-matrices-to-write-code-for-numerical-routines-to-move-data-around-to-plot-data.-and-its-sort-of-an-extremely-easy-to-learn-tool-to-use-for-implementing-a-lot-of-learning-algorithms." class="slide level2">
-<h2>“MATLAB is I guess part of the programming language that makes it very easy to write codes using matrices, to write code for numerical routines, to move data around, to plot data. And it’s sort of an extremely easy to learn tool to use for implementing a lot of learning algorithms.”</h2>
-<p>Document 2:</p>
-</section>
-<section id="matlab-is-i-guess-part-of-the-programming-language-that-makes-it-very-easy-to-write-codes-using-matrices-to-write-code-for-numerical-routines-to-move-data-around-to-plot-data.-and-its-sort-of-an-extremely-easy-to-learn-tool-to-use-for-implementing-a-lot-of-learning-algorithms.-1" class="slide level2">
-<h2>“MATLAB is I guess part of the programming language that makes it very easy to write codes using matrices, to write code for numerical routines, to move data around, to plot data. And it’s sort of an extremely easy to learn tool to use for implementing a lot of learning algorithms.”</h2>
-<p>Document 3:</p>
-</section>
-<section id="and-the-student-saidoh-it-was-the-matlab.-so-for-those-of-you-that-dont-know-matlab-yet-i-hope-you-do-learn-it.-its-not-hard-and-well-actually-have-a-short-matlab-tutorial-in-one-of-the-discussion-sections-for-those-of-you-that-dont-know-it." class="slide level2">
-<h2>“And the student said,”Oh, it was the MATLAB.” So for those of you that don’t know MATLAB yet, I hope you do learn it. It’s not hard, and we’ll actually have a short MATLAB tutorial in one of the discussion sections for those of you that don’t know it.”</h2>
-<p>Document 4:</p>
-<p>“And the student said,”Oh, it was the MATLAB.” So for those of you that don’t know MATLAB yet, I hope you do learn it. It’s not hard, and we’ll actually have a short MATLAB tutorial in one of the discussion sections for those of you that don’t know it.”</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb33-1"><a href="#cb33-1"></a><span class="an">Document 1:</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a></span>
+<span id="cb33-3"><a href="#cb33-3"></a>"MATLAB is I guess part of the programming language that makes it very easy to write codes using matrices, to write code for numerical routines, to move data around, to plot data. And it's sort of an extremely easy to learn tool to use for implementing a lot of learning algorithms."</span>
+<span id="cb33-4"><a href="#cb33-4"></a>----------------------------------------------------------------------------------------------------</span>
+<span id="cb33-5"><a href="#cb33-5"></a>Document 2:</span>
+<span id="cb33-6"><a href="#cb33-6"></a></span>
+<span id="cb33-7"><a href="#cb33-7"></a>"MATLAB is I guess part of the programming language that makes it very easy to write codes using matrices, to write code for numerical routines, to move data around, to plot data. And it's sort of an extremely easy to learn tool to use for implementing a lot of learning algorithms."</span>
+<span id="cb33-8"><a href="#cb33-8"></a>----------------------------------------------------------------------------------------------------</span>
+<span id="cb33-9"><a href="#cb33-9"></a>Document 3:</span>
+<span id="cb33-10"><a href="#cb33-10"></a></span>
+<span id="cb33-11"><a href="#cb33-11"></a>"And the student said, "Oh, it was the MATLAB." So for those of you that don't know MATLAB yet, I hope you do learn it. It's not hard, and we'll actually have a short MATLAB tutorial in one of the discussion sections for those of you that don't know it."</span>
+<span id="cb33-12"><a href="#cb33-12"></a>----------------------------------------------------------------------------------------------------</span>
+<span id="cb33-13"><a href="#cb33-13"></a>Document 4:</span>
+<span id="cb33-14"><a href="#cb33-14"></a></span>
+<span id="cb33-15"><a href="#cb33-15"></a>"And the student said, "Oh, it was the MATLAB." So for those of you that don't know MATLAB yet, I hope you do learn it. It's not hard, and we'll actually have a short MATLAB tutorial in one of the discussion sections for those of you that don't know it."</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section></section>
 <section>
 <section id="combining-various-techniques" class="title-slide slide level1 center">
@@ -794,35 +803,39 @@ Jan Kirenz
 <section id="contextualcompressionretriever-with-mmr" class="slide level2">
 <h2>ContextualCompressionRetriever with MMR</h2>
 <div class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>compression_retriever <span class="op">=</span> ContextualCompressionRetriever(</span>
-<span id="cb32-2"><a href="#cb32-2"></a>    base_compressor<span class="op">=</span>compressor,</span>
-<span id="cb32-3"><a href="#cb32-3"></a>    base_retriever<span class="op">=</span>vectordb.as_retriever(search_type<span class="op">=</span><span class="st">"mmr"</span>)</span>
-<span id="cb32-4"><a href="#cb32-4"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>compression_retriever <span class="op">=</span> ContextualCompressionRetriever(</span>
+<span id="cb34-2"><a href="#cb34-2"></a>    base_compressor<span class="op">=</span>compressor,</span>
+<span id="cb34-3"><a href="#cb34-3"></a>    base_retriever<span class="op">=</span>vectordb.as_retriever(search_type<span class="op">=</span><span class="st">"mmr"</span>)</span>
+<span id="cb34-4"><a href="#cb34-4"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="question-1" class="slide level2">
+<section id="question" class="slide level2">
 <h2>Question</h2>
 <div class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a>question <span class="op">=</span> <span class="st">"what did they say about matlab?"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a>question <span class="op">=</span> <span class="st">"what did they say about matlab?"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="retriever-2" class="slide level2">
-<h2>Retriever</h2>
+<ul>
+<li class="fragment">Retriever</li>
+</ul>
+<div class="fragment">
 <div class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>compressed_docs <span class="op">=</span> compression_retriever.get_relevant_documents(question)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>compressed_docs <span class="op">=</span> compression_retriever.get_relevant_documents(question)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section>
 <section id="result-5" class="slide level2">
 <h2>Result</h2>
 <div class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a>pretty_print_docs(compressed_docs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a>pretty_print_docs(compressed_docs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Document 1:</p>
-</section>
-<section id="matlab-is-i-guess-part-of-the-programming-language-that-makes-it-very-easy-to-write-codes-using-matrices-to-write-code-for-numerical-routines-to-move-data-around-to-plot-data.-and-its-sort-of-an-extremely-easy-to-learn-tool-to-use-for-implementing-a-lot-of-learning-algorithms.-2" class="slide level2">
-<h2>“MATLAB is I guess part of the programming language that makes it very easy to write codes using matrices, to write code for numerical routines, to move data around, to plot data. And it’s sort of an extremely easy to learn tool to use for implementing a lot of learning algorithms.”</h2>
-<p>Document 2:</p>
-<p>“And the student said,”Oh, it was the MATLAB.” So for those of you that don’t know MATLAB yet, I hope you do learn it. It’s not hard, and we’ll actually have a short MATLAB tutorial in one of the discussion sections for those of you that don’t know it.”</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1"></a></span>
+<span id="cb38-2"><a href="#cb38-2"></a>Document 1:</span>
+<span id="cb38-3"><a href="#cb38-3"></a></span>
+<span id="cb38-4"><a href="#cb38-4"></a>"MATLAB is I guess part of the programming language that makes it very easy to write codes using matrices, to write code for numerical routines, to move data around, to plot data. And it's sort of an extremely easy to learn tool to use for implementing a lot of learning algorithms."</span>
+<span id="cb38-5"><a href="#cb38-5"></a>----------------------------------------------------------------------------------------------------</span>
+<span id="cb38-6"><a href="#cb38-6"></a>Document 2:</span>
+<span id="cb38-7"><a href="#cb38-7"></a></span>
+<span id="cb38-8"><a href="#cb38-8"></a>"And the student said, "Oh, it was the MATLAB." So for those of you that don't know MATLAB yet, I hope you do learn it. It's not hard, and we'll actually have a short MATLAB tutorial in one of the discussion sections for those of you that don't know it."</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section></section>
 <section>
 <section id="other-types-of-retrieval" class="title-slide slide level1 center">
@@ -839,24 +852,24 @@ Jan Kirenz
 <section id="load" class="slide level2">
 <h2>Load</h2>
 <div class="cell" data-execution_count="36">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># Load PDF</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a>loader <span class="op">=</span> PyPDFLoader(<span class="st">"../docs/cs229_lectures/MachineLearning-Lecture01.pdf"</span>)</span>
-<span id="cb36-3"><a href="#cb36-3"></a></span>
-<span id="cb36-4"><a href="#cb36-4"></a>pages <span class="op">=</span> loader.load()</span>
-<span id="cb36-5"><a href="#cb36-5"></a></span>
-<span id="cb36-6"><a href="#cb36-6"></a>all_page_text <span class="op">=</span> [p.page_content <span class="cf">for</span> p <span class="kw">in</span> pages]</span>
-<span id="cb36-7"><a href="#cb36-7"></a></span>
-<span id="cb36-8"><a href="#cb36-8"></a>joined_page_text <span class="op">=</span> <span class="st">" "</span>.join(all_page_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a><span class="co"># Load PDF</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>loader <span class="op">=</span> PyPDFLoader(<span class="st">"../docs/cs229_lectures/MachineLearning-Lecture01.pdf"</span>)</span>
+<span id="cb39-3"><a href="#cb39-3"></a></span>
+<span id="cb39-4"><a href="#cb39-4"></a>pages <span class="op">=</span> loader.load()</span>
+<span id="cb39-5"><a href="#cb39-5"></a></span>
+<span id="cb39-6"><a href="#cb39-6"></a>all_page_text <span class="op">=</span> [p.page_content <span class="cf">for</span> p <span class="kw">in</span> pages]</span>
+<span id="cb39-7"><a href="#cb39-7"></a></span>
+<span id="cb39-8"><a href="#cb39-8"></a>joined_page_text <span class="op">=</span> <span class="st">" "</span>.join(all_page_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="split" class="slide level2">
 <h2>Split</h2>
 <div class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="co"># Split</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>text_splitter <span class="op">=</span> RecursiveCharacterTextSplitter(</span>
-<span id="cb37-3"><a href="#cb37-3"></a>    chunk_size<span class="op">=</span><span class="dv">1500</span>, chunk_overlap<span class="op">=</span><span class="dv">150</span>)</span>
-<span id="cb37-4"><a href="#cb37-4"></a></span>
-<span id="cb37-5"><a href="#cb37-5"></a>splits <span class="op">=</span> text_splitter.split_text(joined_page_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a><span class="co"># Split</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>text_splitter <span class="op">=</span> RecursiveCharacterTextSplitter(</span>
+<span id="cb40-3"><a href="#cb40-3"></a>    chunk_size<span class="op">=</span><span class="dv">1500</span>, chunk_overlap<span class="op">=</span><span class="dv">150</span>)</span>
+<span id="cb40-4"><a href="#cb40-4"></a></span>
+<span id="cb40-5"><a href="#cb40-5"></a>splits <span class="op">=</span> text_splitter.split_text(joined_page_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="retrieve-with-svm-and-tf-idf" class="slide level2">
@@ -864,29 +877,28 @@ Jan Kirenz
 <ul>
 <li class="fragment"><a href="https://python.langchain.com/docs/integrations/retrievers/svm">Support vector machine (SVMs) retriever</a></li>
 </ul>
+<div class="fragment">
 <div class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="co"># Retrieve</span></span>
-<span id="cb38-2"><a href="#cb38-2"></a>svm_retriever <span class="op">=</span> SVMRetriever.from_texts(splits, embedding)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a><span class="co"># Retrieve</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a>svm_retriever <span class="op">=</span> SVMRetriever.from_texts(splits, embedding)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li class="fragment"><a href="https://python.langchain.com/docs/integrations/retrievers/tf_idf">TF-IDF: term-frequency times inverse document-frequency retriever</a></li>
 </ul>
+</div>
 <div class="fragment">
 <div class="cell" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a>tfidf_retriever <span class="op">=</span> TFIDFRetriever.from_texts(splits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a>tfidf_retriever <span class="op">=</span> TFIDFRetriever.from_texts(splits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-</section>
-<section id="question-2" class="slide level2">
-<h2>Question</h2>
 </section>
 <section id="svm-retriever" class="slide level2 smaller">
 <h2>SVM retriever</h2>
 <div class="cell" data-execution_count="40">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a>question <span class="op">=</span> <span class="st">"What are major topics for this class?"</span></span>
-<span id="cb40-2"><a href="#cb40-2"></a></span>
-<span id="cb40-3"><a href="#cb40-3"></a>docs_svm <span class="op">=</span> svm_retriever.get_relevant_documents(question)</span>
-<span id="cb40-4"><a href="#cb40-4"></a>docs_svm[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a>question <span class="op">=</span> <span class="st">"What are major topics for this class?"</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a></span>
+<span id="cb43-3"><a href="#cb43-3"></a>docs_svm <span class="op">=</span> svm_retriever.get_relevant_documents(question)</span>
+<span id="cb43-4"><a href="#cb43-4"></a>docs_svm[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li class="fragment">Document(page_content=‘don't have a MATLAB license, for the purposes of this class, there's also — [inaudible] that down [inaudible] MATLAB — there' s also a software package called Octave you can download for free off the Internet. And it has somewhat fewer features than MATLAB, but it's free, and for the purposes of this class, it will work for just about . actually I, well, so yeah, just a side comment for those of you that haven't seen before I guess, once a colleague of mine at a different university, not at , actually teaches another machine l earning course. He's taught it for many years. one day, he was in his office, and an old student of his from, lik e, ten years ago came his office and he said, “Oh, professo r, professor, thank you so much for your learning class. I learned so much from it. There's this stuff that I learned in your , and I now use every day. And it's help ed me make lots of money, and here's a of my big house.” my friend was very excited. He said, “W ow. That's great. I'm glad to hear this learning stuff was actually useful. So what was it that you learned? Was it regression? Was it the PCA? Was it the data ne tworks? What was it that you that was so helpful?” And the student said, “Oh, it was the MATLAB.” for those of you that don't know MATLAB yet, I hope you do learn it. It's not hard,’, metadata={})</li>
@@ -895,11 +907,11 @@ Jan Kirenz
 <section id="tfidf-retriever" class="slide level2 smaller">
 <h2>TFIDF retriever</h2>
 <div class="cell" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>question <span class="op">=</span> <span class="st">"what did they say about matlab?"</span></span>
-<span id="cb41-2"><a href="#cb41-2"></a></span>
-<span id="cb41-3"><a href="#cb41-3"></a>docs_tfidf <span class="op">=</span> tfidf_retriever.get_relevant_documents(question)</span>
-<span id="cb41-4"><a href="#cb41-4"></a></span>
-<span id="cb41-5"><a href="#cb41-5"></a>docs_tfidf[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a>question <span class="op">=</span> <span class="st">"what did they say about matlab?"</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a></span>
+<span id="cb44-3"><a href="#cb44-3"></a>docs_tfidf <span class="op">=</span> tfidf_retriever.get_relevant_documents(question)</span>
+<span id="cb44-4"><a href="#cb44-4"></a></span>
+<span id="cb44-5"><a href="#cb44-5"></a>docs_tfidf[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li class="fragment">Document(page_content=“Saxena and Min Sun here did, wh ich is given an image like this, right? This is actually a taken of the Stanford campus. You can apply that sort of cl ustering algorithm and the picture into regions. Let me actually blow that up so that you can see it more . Okay. So in the middle, you see the lines sort of groupi ng the image together, the image into [inaudible] regions. what Ashutosh and Min did was they then applied the learning algorithm to say can take this clustering and us e it to build a 3D model of the world? And so using the , they then had a lear ning algorithm try to learn what the 3D structure of the looks like so that they could come up with a 3D model that you can sort of fly , okay? Although many people used to th ink it’s not possible to take a single and build a 3D model, but using a lear ning algorithm and that sort of clustering is the first step. They were able to. ’ll just show you one more example. I like this because it’s a picture of Stanford with our Stanford campus. So again, taking th e same sort of clustering algorithms, taking same sort of unsupervised learning algor ithm, you can group the pixels into different . And using that as a pre-processing step, they eventually built this sort of 3D model of Stanford campus in a single picture. You can sort of walk into the ceiling, look”, metadata={})</li>
