@@ -169,7 +169,7 @@ result["result"]
 
 - 'Yes, probability is a class topic. Thanks for asking!'
 
-## Source documents
+## Source documents {.smaller}
 
 ```{python}
 
@@ -258,6 +258,8 @@ qa_chain = RetrievalQA.from_chain_type(
 )
 ```
 
+. . .
+
 ```{python}
 
 question = "Is probability a class topic?"
@@ -266,6 +268,9 @@ result["result"]
 ```
 
 - 'Yes, probability is a topic that will be covered in this class. The instructor assumes familiarity with basic probability and statistics.'
+
+## Conversational history {.smaller}
+
 
 ```{python}
 question = "why are those prerequesites needed?"
