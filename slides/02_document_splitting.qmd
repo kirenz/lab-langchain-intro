@@ -576,3 +576,17 @@ md_header_splits[0]
 ```
 
 - Document(page_content='👋 Welcome to Notion!  \nHere are the basics:  \n- [ ]  Click anywhere and just start typing\n- [ ]  Hit `/` to see all the types of content you can add - headers, videos, sub pages, etc.  \n[Example sub page](https://www.notion.so/Example-sub-page-92f63253929d456bbf12cd696e21e045?pvs=21)  \n- [ ]  Highlight any text, and use the menu that pops up to **style** *your* ~~writing~~ `however` [you](https://www.notion.so/product) like\n- [ ]  See the `⋮⋮` to the left of this checkbox on hover? Click and drag to move this line\n- [ ]  Click the `+ New Page` button at the bottom of your sidebar to add a new page\n- [ ]  Click `Templates` in your sidebar to get started with pre-built pages\n- This is a toggle block. Click the little triangle to see more useful tips!\n- [Template Gallery](https://www.notion.so/181e961aeb5c4ee6915307c0dfd5156d?pvs=21): More templates built by the Notion community\n- [Help & Support](https://www.notion.so/e040febf70a94950b8620e6f00005004?pvs=21): ****Guides and FAQs for everything in Notion\n- Stay organized with your sidebar and nested pages:  \n![Getting%20Started%2095e5ecbe48c44e408ef09fed850fbd40/infinitehierarchynodither.gif](Getting%20Started%2095e5ecbe48c44e408ef09fed850fbd40/infinitehierarchynodither.gif)  \nSee it in action:  \n[1 minute](https://youtu.be/TL_N2pmh9O0)  \n1 minute  \n[4 minutes](https://youtu.be/FXIrojSK3Jo)  \n4 minutes  \n[2 minutes](https://youtu.be/2Pwzff-uffU)  \n2 minutes  \n[2 minutes](https://youtu.be/O8qdvSxDYNY)  \n2 minutes  \nVisit our [YouTube channel](http://youtube.com/c/notion) to watch 50+ more tutorials  \n👉**Have a question?** Click the `?` at the bottom right for more guides, or to send us a message.', metadata={'Header 1': 'Getting Started'})
+
+# Acknowledgments
+
+- This tutorial is mainly based on the excellent course ["LangChain: Chat with Your DataI"](https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/) provided by Harrison Chase from LangChain and Andrew Ng from DeepLearning.AI.
+
+
+# What's next? {background-image="../images/logo.png" background-opacity="0.5"}
+
+**Congratulations! You have completed this tutorial** 👍
+
+
+**Next, you may want to go back to the [lab's website](https://kirenz.github.io/lab-langchain-intro/)**
+
+
