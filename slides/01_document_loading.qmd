@@ -91,7 +91,7 @@ pages = loader.load()
 
 - A `Document` contains text (`page_content`) and `metadata`.
 
-## Inspect data {.smaller}
+## Inspect data 
 
 ```{python}
 len(pages)
@@ -142,12 +142,9 @@ I actually think that machine learning i
 
 Let's load the "Code Report" about Vector databases from Fireship
 
-{{< video https://www.youtube.com/embed/klTvEwg3oJ4?si=VPuxdiw9QaWfIqbD>}}
 
-
-<!---
  <iframe width="560" height="315" src="https://www.youtube.com/embed/klTvEwg3oJ4?si=VPuxdiw9QaWfIqbD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
---->
+
 
 ## Load YouTube video
 
@@ -177,7 +174,7 @@ docs[0].page_content[0:500]
 - "It is April 7th, 2023, and you're watching The Code Report. One month ago, Vector Database Weaviate landed $16 million in Series A funding. Last week, PineconeDB just got a check for $28 million at a $700 million valuation. And yesterday, Chroma, an open source project with only 1.2 GitHub stars, raised $18 million for its Embeddings database. And I just launched my own Vector database this morning. We're currently pre-revenue, pre-vision, and pre-code, and valued at $420 million. Leave your cre"
 
 
-## Save as DataFrame and CSV
+## Save data
 
 
 ```{python}
@@ -217,14 +214,14 @@ print(docs[0].page_content[400:800])
 Additionally, by understanding the structure of the study, causal relationships can be separated from those relationships which are only associated.
 A good question to ask oneself before working with the data at all is, "H
 
-## Save as DataFrame
+## Save data
 
 
 ```{python}
 df = pd.DataFrame(docs, columns=['Text', 'Metadata'])
 ```
 
-## Save as CSV
+. . .
 
 ```{python}
 df.to_csv('../docs/url/study-design.csv')
