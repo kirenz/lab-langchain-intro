@@ -39,14 +39,14 @@
     "href": "slides/01_document_loading.html#inspect-data",
     "title": "Document Loading",
     "section": "Inspect data",
-    "text": "Inspect data\n\nlen(pages)\n\n\n\n\n\n22\n\n\n\npage = pages[0]\n\n\n\n\npage.metadata\n\n\n\n\n\n{‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture01.pdf’, ‘page’: 0}"
+    "text": "Inspect data\n\nlen(pages)\n\n\n22\n\n\n\npage = pages[0]\n\n\n\n\npage.metadata\n\n\n{‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture01.pdf’, ‘page’: 0}"
   },
   {
     "objectID": "slides/01_document_loading.html#inspect-content",
     "href": "slides/01_document_loading.html#inspect-content",
     "title": "Document Loading",
     "section": "Inspect content",
-    "text": "Inspect content\n\nprint(page.page_content[0:500])\n\n\n\n\n\nMachineLearning-Lecture01\nInstructor (Andrew Ng): Okay. Good morning. Welcome to CS229, the machine learning class. So what I wanna do today is ju st spend a little time going over the logistics of the class, and then we’ll start to talk a bit about machine learning.\nBy way of introduction, my name’s Andrew Ng and I’ll be instru ctor for this class. And so I personally work in machine learning, and I’ ve worked on it for about 15 years now, and I actually think that machine learning i"
+    "text": "Inspect content\n\nprint(page.page_content[0:500])\n\n\nMachineLearning-Lecture01\nInstructor (Andrew Ng): Okay. Good morning. Welcome to CS229, the machine learning class. So what I wanna do today is ju st spend a little time going over the logistics of the class, and then we’ll start to talk a bit about machine learning.\nBy way of introduction, my name’s Andrew Ng and I’ll be instru ctor for this class. And so I personally work in machine learning, and I’ ve worked on it for about 15 years now, and I actually think that machine learning i"
   },
   {
     "objectID": "slides/01_document_loading.html#prerequisites",
@@ -74,7 +74,7 @@
     "href": "slides/01_document_loading.html#inspect-data-1",
     "title": "Document Loading",
     "section": "Inspect data",
-    "text": "Inspect data\n\ndocs[0].page_content[0:500]\n\n\n\n\n\n“It is April 7th, 2023, and you’re watching The Code Report. One month ago, Vector Database Weaviate landed $16 million in Series A funding. Last week, PineconeDB just got a check for $28 million at a $700 million valuation. And yesterday, Chroma, an open source project with only 1.2 GitHub stars, raised $18 million for its Embeddings database. And I just launched my own Vector database this morning. We’re currently pre-revenue, pre-vision, and pre-code, and valued at $420 million. Leave your cre”"
+    "text": "Inspect data\n\ndocs[0].page_content[0:500]\n\n\n“It is April 7th, 2023, and you’re watching The Code Report. One month ago, Vector Database Weaviate landed $16 million in Series A funding. Last week, PineconeDB just got a check for $28 million at a $700 million valuation. And yesterday, Chroma, an open source project with only 1.2 GitHub stars, raised $18 million for its Embeddings database. And I just launched my own Vector database this morning. We’re currently pre-revenue, pre-vision, and pre-code, and valued at $420 million. Leave your cre”"
   },
   {
     "objectID": "slides/01_document_loading.html#save-as-dataframe",
@@ -109,7 +109,7 @@
     "href": "slides/01_document_loading.html#inspact-data",
     "title": "Document Loading",
     "section": "Inspact data",
-    "text": "Inspact data\n\nprint(docs[0].page_content[400:800])\n\n\n\n\n\nampling. Knowing how the observational units were selected from a larger entity will allow for generalizations back to the population from which the data were randomly selected. Additionally, by understanding the structure of the study, causal relationships can be separated from those relationships which are only associated. A good question to ask oneself before working with the data at all is, “H"
+    "text": "Inspact data\n\nprint(docs[0].page_content[400:800])\n\n\nampling. Knowing how the observational units were selected from a larger entity will allow for generalizations back to the population from which the data were randomly selected. Additionally, by understanding the structure of the study, causal relationships can be separated from those relationships which are only associated. A good question to ask oneself before working with the data at all is, “H"
   },
   {
     "objectID": "slides/01_document_loading.html#save-as-dataframe-1",
@@ -130,7 +130,7 @@
     "href": "slides/01_document_loading.html#example-3",
     "title": "Document Loading",
     "section": "Example",
-    "text": "Example\n\nFollow the steps here for an example Notion site such as this one:\nDuplicate the page into your own Notion space and export as Markdown / CSV.\nUnzip it and save it as a folder that contains the markdown file for the Notion page."
+    "text": "Example\n\nOption 1: Simply use the example data provided in langchain-intro/docs/Notion_DB\nOption 2: Follow the steps here for an example Notion site such as this one\n\nDuplicate the page into your own Notion space and export as Markdown / CSV.\nUnzip it and save it as a folder that contains the markdown file for the Notion page."
   },
   {
     "objectID": "slides/01_document_loading.html#load-notion",
@@ -144,14 +144,14 @@
     "href": "slides/01_document_loading.html#inspect-data-2",
     "title": "Document Loading",
     "section": "Inspect data",
-    "text": "Inspect data\n\nprint(docs[0].page_content[0:200])\n\n\n\n\n# Getting Started\n\n👋 Welcome to Notion!\n\nHere are the basics:\n\n- [ ]  Click anywhere and just start typing\n- [ ]  Hit `/` to see all the types of content you can add - headers, videos, sub pages, etc."
+    "text": "Inspect data\n\nprint(docs[0].page_content[0:200])\n\n# Getting Started\n\n👋 Welcome to Notion!\n\nHere are the basics:\n\n- [ ]  Click anywhere and just start typing\n- [ ]  Hit `/` to see all the types of content you can add - headers, videos, sub pages, etc."
   },
   {
     "objectID": "slides/01_document_loading.html#inspect-data-3",
     "href": "slides/01_document_loading.html#inspect-data-3",
     "title": "Document Loading",
     "section": "Inspect data",
-    "text": "Inspect data\n\ndocs[0].metadata\n\n\n\n\n\n{‘source’: ‘../docs/Notion_DB/Getting Started 95e5ecbe48c44e408ef09fed850fbd40.md’}"
+    "text": "Inspect data\n\ndocs[0].metadata\n\n\n{‘source’: ‘../docs/Notion_DB/Getting Started 95e5ecbe48c44e408ef09fed850fbd40.md’}"
   },
   {
     "objectID": "slides/03_vectorstores_and_embeddings.html#python",
