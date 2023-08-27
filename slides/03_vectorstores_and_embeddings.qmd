@@ -35,6 +35,8 @@ format:
 
 # Vectorstores and Embeddings
 
+Dive into the concept of embeddings and explore vector store integrations within LangChain.
+
 # Setup
 
 ## Python
@@ -95,6 +97,8 @@ text_splitter = RecursiveCharacterTextSplitter(
 splits = text_splitter.split_documents(docs)
 ```
 
+. . .
+
 ```{python}
 len(splits)
 ```
@@ -106,6 +110,8 @@ len(splits)
 ## OpenAIEmbeddings
 
 - Let's take our splits and embed them.
+
+. . .
 
 ```{python}
 embedding = OpenAIEmbeddings()
@@ -192,6 +198,8 @@ print(vectordb._collection.count())
 question = "is there an email i can ask for help"
 ```
 
+. . .
+
 ```{python}
 docs = vectordb.similarity_search(question,k=3)
 ```
@@ -216,6 +224,8 @@ docs[0].page_content
 ## Persist data
 
 - Let's save this so we can use it later!
+
+. . .
 
 ```{python}
 vectordb.persist()
@@ -274,23 +284,29 @@ docs[1]
 question = "what did they say about regression in the third lecture?"
 ```
 
+. . .
+
 ```{python}
 docs = vectordb.similarity_search(question,k=5)
 ```
 
-## Inspect data
+## Inspect data {.smaller}
 
 ```{python}
 for doc in docs:
     print(doc.metadata)
 ```
 
+. . .
+
+```{python}
 
 {'source': '../docs/cs229_lectures/MachineLearning-Lecture03.pdf', 'page': 0}
 {'source': '../docs/cs229_lectures/MachineLearning-Lecture03.pdf', 'page': 14}
 {'source': '../docs/cs229_lectures/MachineLearning-Lecture02.pdf', 'page': 0}
 {'source': '../docs/cs229_lectures/MachineLearning-Lecture03.pdf', 'page': 6}
 {'source': '../docs/cs229_lectures/MachineLearning-Lecture01.pdf', 'page': 8}
+```
 
 - The question was about the third lecture, but includes results from other lectures as well.
 
