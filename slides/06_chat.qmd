@@ -35,9 +35,11 @@ format:
 
 # Chat
 
+Learn how to track and select pertinent information from conversations and data sources, as you build your own chatbot using LangChain.
+
 # Setup
 
-## Python
+## Python {.smaller}
 
 
 ```{python}
@@ -78,6 +80,8 @@ openai.api_key = os.environ['OPENAI_API_KEY']
   - Go to [langchain plus platform](https://www.langchain.plus/) and sign up
   - Create an api key from your account's settings
    - Use this api key in the code below 
+
+. . .
 
 ```{python}
 # | height: 81
