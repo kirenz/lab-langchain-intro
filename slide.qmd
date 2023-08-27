@@ -6,6 +6,8 @@ number-sections: true
 *The following tutorials are mainly based on the excellent course ["LangChain: Chat with Your DataI"](https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/) provided by Harrison Chase from LangChain and Andrew Ng from DeepLearning.AI.*
 
 
+![](/images/rag.png)
+
 ::: {.callout-note appearance="simple"}
 Take a look at the [slides tutorial](https://kirenz.github.io/lab-toolkit/slides/slides.html#/title-slide) to learn how to use all slide options. 
 
@@ -13,11 +15,34 @@ To download Jupyter Notebooks: Go to the Colab menu and choose "File" > "Downloa
 :::
 
 
-## Txt
+## Document Loading
 
-In this tutorial, you'll learn:
+Learn the fundamentals of data loading and discover over 80 unique loaders LangChain provides to access diverse data sources, including audio and video:
 
 ::: {.callout-tip appearance="simple" icon=false}
-- [🖥️ Presentation]()
+- [🖥️ Presentation](/slides/01_document_loading.qmd)
 - [💻 Jupyter Notebook]()
 :::
+
+
+## Document Splitting
+
+In the context of building LLM-related applications, splitting is the process of breaking down large pieces of text into smaller segments:
+
+::: {.callout-tip appearance="simple" icon=false}
+- [🖥️ Presentation](/slides/02_document_splitting.qmd)
+- [💻 Jupyter Notebook]()
+:::
+
+## Vector stores and embeddings
+
+Learn the concept of embeddings and explore vector store integrations within LangChain.
+
+::: {.callout-tip appearance="simple" icon=false}
+- [🖥️ Presentation](/slides/03_vectorstores_and_embeddings.qmd)
+- [💻 Jupyter Notebook]()
+:::
+
+- Retrieval: Grasp advanced techniques for accessing and indexing data in the vector store, enabling you to retrieve the most relevant information beyond semantic queries.
+- Question Answering: Build a one-pass question-answering solution.
+- Chat: Learn how to track and select pertinent information from conversations and data sources, as you build your own chatbot using LangChain.
