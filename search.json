@@ -284,7 +284,7 @@
     "href": "slides/06_chat.html#langchain-plus-platform",
     "title": "Chat",
     "section": "LangChain plus platform",
-    "text": "LangChain plus platform\n\nIf you wish to experiment on LangChain plus platform:\n\nGo to langchain plus platform and sign up\nCreate an api key from your account’s settings\nUse this api key in the code below\n\n\n\n# import os\n# os.environ[\"LANGCHAIN_TRACING_V2\"] = \"true\"\n# os.environ[\"LANGCHAIN_ENDPOINT\"] = \"https://api.langchain.plus\"\n# os.environ[\"LANGCHAIN_API_KEY\"] = \"...\""
+    "text": "LangChain plus platform\n\nIf you wish to experiment on LangChain plus platform:\n\nGo to langchain plus platform and sign up\nCreate an api key from your account’s settings\nUse this api key in the code below\n\n\n\n\n# import os\n# os.environ[\"LANGCHAIN_TRACING_V2\"] = \"true\"\n# os.environ[\"LANGCHAIN_ENDPOINT\"] = \"https://api.langchain.plus\"\n# os.environ[\"LANGCHAIN_API_KEY\"] = \"...\""
   },
   {
     "objectID": "slides/06_chat.html#vector-database",
@@ -606,7 +606,14 @@
     "href": "slides/05_question_answering.html#conversational-history",
     "title": "Question Answering",
     "section": "Conversational history",
-    "text": "Conversational history\n\nQA fails to preserve conversational history.\n\n\nqa_chain = RetrievalQA.from_chain_type(\n    llm,\n    retriever=vectordb.as_retriever()\n)\n\n\nquestion = \"Is probability a class topic?\"\nresult = qa_chain({\"query\": question})\nresult[\"result\"]\n\n\n‘Yes, probability is a topic that will be covered in this class. The instructor assumes familiarity with basic probability and statistics.’\n\n\nquestion = \"why are those prerequesites needed?\"\nresult = qa_chain({\"query\": question})\nresult[\"result\"]\n\n\n‘The prerequisites are needed because they provide the foundational knowledge and skills necessary to understand and apply machine learning algorithms. knowledge of computer science and computer skills is important because machine learning algorithms often involve programming and working with data. Understanding concepts like big-O notation helps in analyzing the efficiency and scalability of algorithms.with probability and statistics is necessary because machine learning involves working with data and making predictions based on statistical models. Understanding concepts like random variables, expectation, and variance is crucial in understanding and evaluating machine learning algorithms.knowledge of linear algebra is important because many machine learning algorithms involve manipulating matrices and vectors. Understanding concepts like matrix multiplication, matrix inverse, and eigenvectors is essential in understanding and implementing these algorithms., these prerequisites provide the necessary background knowledge and skills to effectively learn and apply machine learning algorithms.’"
+    "text": "Conversational history\n\nQA fails to preserve conversational history.\n\n\nqa_chain = RetrievalQA.from_chain_type(\n    llm,\n    retriever=vectordb.as_retriever()\n)\n\n\n\nquestion = \"Is probability a class topic?\"\nresult = qa_chain({\"query\": question})\nresult[\"result\"]\n\n\n‘Yes, probability is a topic that will be covered in this class. The instructor assumes familiarity with basic probability and statistics.’"
+  },
+  {
+    "objectID": "slides/05_question_answering.html#conversational-history-1",
+    "href": "slides/05_question_answering.html#conversational-history-1",
+    "title": "Question Answering",
+    "section": "Conversational history",
+    "text": "Conversational history\n\nquestion = \"why are those prerequesites needed?\"\nresult = qa_chain({\"query\": question})\nresult[\"result\"]\n\n\n‘The prerequisites are needed because they provide the foundational knowledge and skills necessary to understand and apply machine learning algorithms. knowledge of computer science and computer skills is important because machine learning algorithms often involve programming and working with data. Understanding concepts like big-O notation helps in analyzing the efficiency and scalability of algorithms.with probability and statistics is necessary because machine learning involves working with data and making predictions based on statistical models. Understanding concepts like random variables, expectation, and variance is crucial in understanding and evaluating machine learning algorithms.knowledge of linear algebra is important because many machine learning algorithms involve manipulating matrices and vectors. Understanding concepts like matrix multiplication, matrix inverse, and eigenvectors is essential in understanding and implementing these algorithms., these prerequisites provide the necessary background knowledge and skills to effectively learn and apply machine learning algorithms.’"
   },
   {
     "objectID": "slides/05_question_answering.html#limitations",
