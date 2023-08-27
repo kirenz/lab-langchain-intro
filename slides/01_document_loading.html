@@ -488,7 +488,7 @@ Jan Kirenz
 <li class="fragment"><p>A <code>Document</code> contains text (<code>page_content</code>) and <code>metadata</code>.</p></li>
 </ul>
 </section>
-<section id="inspect-data" class="slide level2 smaller">
+<section id="inspect-data" class="slide level2">
 <h2>Inspect data</h2>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="bu">len</span>(pages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -536,10 +536,7 @@ By way of introduction, my name’s Andrew Ng and I’ll be instru ctor for this
 <section id="example-1" class="slide level2">
 <h2>Example</h2>
 <p>Let’s load the “Code Report” about Vector databases from Fireship</p>
-<p></p>
-<!---
- <iframe width="560" height="315" src="https://www.youtube.com/embed/klTvEwg3oJ4?si=VPuxdiw9QaWfIqbD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
---->
+<p><iframe width="560" height="315" src="https://www.youtube.com/embed/klTvEwg3oJ4?si=VPuxdiw9QaWfIqbD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe></p>
 </section>
 <section id="load-youtube-video" class="slide level2">
 <h2>Load YouTube video</h2>
@@ -568,16 +565,15 @@ By way of introduction, my name’s Andrew Ng and I’ll be instru ctor for this
 <li class="fragment">“It is April 7th, 2023, and you’re watching The Code Report. One month ago, Vector Database Weaviate landed $16 million in Series A funding. Last week, PineconeDB just got a check for $28 million at a $700 million valuation. And yesterday, Chroma, an open source project with only 1.2 GitHub stars, raised $18 million for its Embeddings database. And I just launched my own Vector database this morning. We’re currently pre-revenue, pre-vision, and pre-code, and valued at $420 million. Leave your cre”</li>
 </ul>
 </section>
-<section id="save-as-dataframe" class="slide level2">
-<h2>Save as DataFrame</h2>
+<section id="save-data" class="slide level2">
+<h2>Save data</h2>
 <div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>df <span class="op">=</span> pd.DataFrame(docs, columns<span class="op">=</span>[<span class="st">'Text'</span>, <span class="st">'Metadata'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="save-as-csv" class="slide level2">
-<h2>Save as CSV</h2>
+<div class="fragment">
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>df.to_csv(<span class="st">'../docs/youtube/codereport.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section></section>
 <section>
@@ -610,16 +606,15 @@ By way of introduction, my name’s Andrew Ng and I’ll be instru ctor for this
 <li class="fragment">ampling. Knowing how the observational units were selected from a larger entity will allow for generalizations back to the population from which the data were randomly selected. Additionally, by understanding the structure of the study, causal relationships can be separated from those relationships which are only associated. A good question to ask oneself before working with the data at all is, “H</li>
 </ul>
 </section>
-<section id="save-as-dataframe-1" class="slide level2">
-<h2>Save as DataFrame</h2>
+<section id="save-data-1" class="slide level2">
+<h2>Save data</h2>
 <div class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>df <span class="op">=</span> pd.DataFrame(docs, columns<span class="op">=</span>[<span class="st">'Text'</span>, <span class="st">'Metadata'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="save-as-csv-1" class="slide level2">
-<h2>Save as CSV</h2>
+<div class="fragment">
 <div class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>df.to_csv(<span class="st">'../docs/url/study-design.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section></section>
 <section>

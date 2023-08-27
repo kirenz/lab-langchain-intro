@@ -77,18 +77,11 @@
     "text": "Inspect data\n\ndocs[0].page_content[0:500]\n\n\n“It is April 7th, 2023, and you’re watching The Code Report. One month ago, Vector Database Weaviate landed $16 million in Series A funding. Last week, PineconeDB just got a check for $28 million at a $700 million valuation. And yesterday, Chroma, an open source project with only 1.2 GitHub stars, raised $18 million for its Embeddings database. And I just launched my own Vector database this morning. We’re currently pre-revenue, pre-vision, and pre-code, and valued at $420 million. Leave your cre”"
   },
   {
-    "objectID": "slides/01_document_loading.html#save-as-dataframe",
-    "href": "slides/01_document_loading.html#save-as-dataframe",
+    "objectID": "slides/01_document_loading.html#save-data",
+    "href": "slides/01_document_loading.html#save-data",
     "title": "Document Loading",
-    "section": "Save as DataFrame",
-    "text": "Save as DataFrame\n\ndf = pd.DataFrame(docs, columns=['Text', 'Metadata'])"
-  },
-  {
-    "objectID": "slides/01_document_loading.html#save-as-csv",
-    "href": "slides/01_document_loading.html#save-as-csv",
-    "title": "Document Loading",
-    "section": "Save as CSV",
-    "text": "Save as CSV\n\ndf.to_csv('../docs/youtube/codereport.csv')"
+    "section": "Save data",
+    "text": "Save data\n\ndf = pd.DataFrame(docs, columns=['Text', 'Metadata'])\n\n\n\ndf.to_csv('../docs/youtube/codereport.csv')"
   },
   {
     "objectID": "slides/01_document_loading.html#example-2",
@@ -112,18 +105,11 @@
     "text": "Inspact data\n\nprint(docs[0].page_content[400:800])\n\n\nampling. Knowing how the observational units were selected from a larger entity will allow for generalizations back to the population from which the data were randomly selected. Additionally, by understanding the structure of the study, causal relationships can be separated from those relationships which are only associated. A good question to ask oneself before working with the data at all is, “H"
   },
   {
-    "objectID": "slides/01_document_loading.html#save-as-dataframe-1",
-    "href": "slides/01_document_loading.html#save-as-dataframe-1",
+    "objectID": "slides/01_document_loading.html#save-data-1",
+    "href": "slides/01_document_loading.html#save-data-1",
     "title": "Document Loading",
-    "section": "Save as DataFrame",
-    "text": "Save as DataFrame\n\ndf = pd.DataFrame(docs, columns=['Text', 'Metadata'])"
-  },
-  {
-    "objectID": "slides/01_document_loading.html#save-as-csv-1",
-    "href": "slides/01_document_loading.html#save-as-csv-1",
-    "title": "Document Loading",
-    "section": "Save as CSV",
-    "text": "Save as CSV\n\ndf.to_csv('../docs/url/study-design.csv')"
+    "section": "Save data",
+    "text": "Save data\n\ndf = pd.DataFrame(docs, columns=['Text', 'Metadata'])\n\n\n\ndf.to_csv('../docs/url/study-design.csv')"
   },
   {
     "objectID": "slides/01_document_loading.html#example-3",

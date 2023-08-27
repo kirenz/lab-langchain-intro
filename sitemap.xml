@@ -2,50 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/requirements.html</loc>
-    <lastmod>2023-08-27T14:49:36.866Z</lastmod>
+    <lastmod>2023-08-27T14:55:45.889Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/slides/01_document_loading.html</loc>
-    <lastmod>2023-08-27T14:49:35.454Z</lastmod>
+    <lastmod>2023-08-27T14:55:44.269Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/slides/03_vectorstores_and_embeddings.html</loc>
-    <lastmod>2023-08-27T14:49:33.970Z</lastmod>
+    <lastmod>2023-08-27T14:55:42.597Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/slides/06_chat.html</loc>
-    <lastmod>2023-08-27T14:49:32.734Z</lastmod>
+    <lastmod>2023-08-27T14:55:41.185Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/docs/Notion_DB/Getting Started 95e5ecbe48c44e408ef09fed850fbd40.html</loc>
-    <lastmod>2023-08-27T14:49:30.818Z</lastmod>
+    <lastmod>2023-08-27T14:55:39.121Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/assignments.html</loc>
-    <lastmod>2023-08-27T14:49:30.154Z</lastmod>
+    <lastmod>2023-08-27T14:55:38.317Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/slide.html</loc>
-    <lastmod>2023-08-27T14:49:29.550Z</lastmod>
+    <lastmod>2023-08-27T14:55:37.565Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/index.html</loc>
-    <lastmod>2023-08-27T14:49:30.482Z</lastmod>
+    <lastmod>2023-08-27T14:55:38.725Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/code/notebook.html</loc>
-    <lastmod>2023-08-27T14:49:31.110Z</lastmod>
+    <lastmod>2023-08-27T14:55:39.457Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/slides/05_question_answering.html</loc>
-    <lastmod>2023-08-27T14:49:33.346Z</lastmod>
+    <lastmod>2023-08-27T14:55:41.869Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/slides/02_document_splitting.html</loc>
-    <lastmod>2023-08-27T14:49:34.930Z</lastmod>
+    <lastmod>2023-08-27T14:55:43.681Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/slides/04_retrieval.html</loc>
-    <lastmod>2023-08-27T14:49:36.242Z</lastmod>
+    <lastmod>2023-08-27T14:55:45.149Z</lastmod>
   </url>
 </urlset>
