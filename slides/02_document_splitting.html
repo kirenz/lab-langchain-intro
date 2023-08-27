@@ -417,6 +417,7 @@ Jan Kirenz
 <li class="fragment"><a href="#/split-notion-data" id="/toc-split-notion-data">Split Notion data</a></li>
 <li class="fragment"><a href="#/token-splitting" id="/toc-token-splitting">Token splitting</a></li>
 <li class="fragment"><a href="#/context-aware-splitting-with-markdown" id="/toc-context-aware-splitting-with-markdown">Context Aware Splitting with Markdown</a></li>
+<li class="fragment"><a href="#/splitting-notion-markdown" id="/toc-splitting-notion-markdown">Splitting Notion Markdown</a></li>
 <li class="fragment"><a href="#/acknowledgments" id="/toc-acknowledgments">Acknowledgments</a></li>
 <li class="fragment"><a href="#/whats-next" id="/toc-whats-next">What’s next?</a></li>
 </ul>
@@ -424,7 +425,7 @@ Jan Kirenz
 </section>
 <section id="document-splitting" class="title-slide slide level1 center">
 <h1>Document Splitting</h1>
-
+<p>Discover the best practices and considerations for splitting data.</p>
 </section>
 
 <section>
@@ -460,7 +461,7 @@ Jan Kirenz
 <section id="character-text-splitter" class="slide level2">
 <h2>Character Text Splitter</h2>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>chunk_size <span class="op">=</span><span class="dv">26</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>chunk_size <span class="op">=</span> <span class="dv">26</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>chunk_overlap <span class="op">=</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
@@ -492,9 +493,6 @@ Jan Kirenz
 <div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>r_splitter.split_text(text1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="6">
-
-</div>
 <ul>
 <li class="fragment">[‘abcdefghijklmnopqrstuvwxyz’]</li>
 </ul>
@@ -508,9 +506,6 @@ Jan Kirenz
 <div class="fragment">
 <div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>r_splitter.split_text(text2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="8">
-
 </div>
 <ul>
 <li class="fragment">[‘abcdefghijklmnopqrstuvwxyz’, ‘wxyzabcdefg’]</li>
@@ -526,9 +521,6 @@ Jan Kirenz
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>r_splitter.split_text(text3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="10">
-
-</div>
 <ul>
 <li class="fragment">[‘a b c d e f g h i j k l m’, ‘l m n o p q r s t u v w x’, ‘w x y z’]</li>
 </ul>
@@ -536,9 +528,6 @@ Jan Kirenz
 <div class="fragment">
 <div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>c_splitter.split_text(text3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="11">
-
 </div>
 <ul>
 <li class="fragment">[‘a b c d e f g h i j k l m n o p q r s t u v w x y z’]</li>
@@ -556,9 +545,6 @@ Jan Kirenz
 </div>
 <div class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>c_splitter.split_text(text3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="13">
-
 </div>
 <ul>
 <li class="fragment">[‘a b c d e f g h i j k l m’, ‘l m n o p q r s t u v w x’, ‘w x y z’]</li>
@@ -608,9 +594,6 @@ Jan Kirenz
 <div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>c_splitter.split_text(some_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="17">
-
-</div>
 <ul>
 <li class="fragment">[‘When writing documents, writers will use document structure to group content. This can convey to the reader, which idea's are related. For example, closely related ideas are in sentances. Similar ideas are in paragraphs. Paragraphs form a document. Paragraphs are often delimited with a carriage return or two carriage returns. Carriage returns are the “backslash n” you see embedded in this string. Sentences have a period at the end, but also,’, ‘have a space.and words are separated by space.’]</li>
 </ul>
@@ -619,9 +602,6 @@ Jan Kirenz
 <h2>Recursive Splitter output</h2>
 <div class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>r_splitter.split_text(some_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="18">
-
 </div>
 <ul>
 <li class="fragment">[“When writing documents, writers will use document structure to group content. This can convey to the reader, which idea’s are related. For example, closely related ideas are in sentances. Similar ideas are in paragraphs. Paragraphs form a document.”, ‘Paragraphs are often delimited with a carriage return or two carriage returns. Carriage returns are the “backslash n” you see embedded in this string. Sentences have a period at the end, but also, have a space.and words are separated by space.’]</li>
@@ -643,9 +623,6 @@ Jan Kirenz
 <div class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>r_splitter.split_text(some_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="20">
-
-</div>
 <ul>
 <li class="fragment">[“When writing documents, writers will use document structure to group content. This can convey to the reader, which idea’s are related”, ‘. For example, closely related ideas are in sentances. Similar ideas are in paragraphs. Paragraphs form a document.’, ‘Paragraphs are often delimited with a carriage return or two carriage returns’, ‘. Carriage returns are the “backslash n” you see embedded in this string’, ‘. Sentences have a period at the end, but also, have a space.and words are separated by space.’]</li>
 </ul>
@@ -664,9 +641,6 @@ Jan Kirenz
 <div class="fragment">
 <div class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>r_splitter.split_text(some_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="22">
-
 </div>
 <ul>
 <li class="fragment">[“When writing documents, writers will use document structure to group content. This can convey to the reader, which idea’s are related.”, ‘For example, closely related ideas are in sentances. Similar ideas are in paragraphs. Paragraphs form a document.’, ‘Paragraphs are often delimited with a carriage return or two carriage returns.’, ‘Carriage returns are the “backslash n” you see embedded in this string.’, ‘Sentences have a period at the end, but also, have a space.and words are separated by space.’]</li>
@@ -707,21 +681,17 @@ Jan Kirenz
 <div class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="bu">len</span>(docs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="26">
-
-</div>
 <ul>
-<li class="fragment">77 . . .</li>
+<li class="fragment">77</li>
 </ul>
+<div class="fragment">
 <div class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a><span class="bu">len</span>(pages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="27">
-
 </div>
 <ul>
 <li class="fragment">22</li>
 </ul>
+</div>
 </section>
 <section id="inspect-data-1" class="slide level2">
 <h2>Inspect data</h2>
@@ -766,21 +736,17 @@ Jan Kirenz
 <div class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a><span class="bu">len</span>(notion_db)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="32">
-
-</div>
 <ul>
-<li class="fragment">1 . . .</li>
+<li class="fragment">1</li>
 </ul>
+<div class="fragment">
 <div class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a><span class="bu">len</span>(docs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="33">
-
 </div>
 <ul>
 <li class="fragment">2</li>
 </ul>
+</div>
 </section>
 <section id="inspect-data-smaller" class="slide level2">
 <h2>Inspect data {smaller}</h2>
@@ -820,50 +786,41 @@ Jan Kirenz
 <div class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>text_splitter <span class="op">=</span> TokenTextSplitter(chunk_size<span class="op">=</span><span class="dv">1</span>, chunk_overlap<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="split-text" class="slide level2">
-<h2>Split text</h2>
+<div class="fragment">
 <div class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a>text1 <span class="op">=</span> <span class="st">"foo bar bazzyfoo"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <div class="fragment">
 <div class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>text_splitter.split_text(text1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="37">
-
 </div>
 <ul>
 <li class="fragment">[‘foo’, ’ bar’, ’ b’, ‘az’, ‘zy’, ‘foo’]</li>
 </ul>
 </div>
 </section>
-<section id="tokentextsplitter-2" class="slide level2">
+<section id="tokentextsplitter-2" class="slide level2 smaller">
 <h2>TokenTextSplitter 2</h2>
 <div class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a>text_splitter <span class="op">=</span> TokenTextSplitter(chunk_size<span class="op">=</span><span class="dv">10</span>, chunk_overlap<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="split-text-1" class="slide level2">
-<h2>Split text</h2>
+<div class="fragment">
 <div class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a>docs <span class="op">=</span> text_splitter.split_documents(pages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+<div class="fragment">
 <div class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>docs[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="40">
-
 </div>
 <ul>
 <li class="fragment">Document(page_content=‘MachineLearning-Lecture01 ’, metadata={‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture01.pdf’, ‘page’: 0})</li>
 </ul>
+</div>
 <div class="fragment">
 <div class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a>pages[<span class="dv">0</span>].metadata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="41">
-
 </div>
 <ul>
 <li class="fragment">{‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture01.pdf’, ‘page’: 0}</li>
@@ -913,7 +870,7 @@ Jan Kirenz
 <span id="cb45-3"><a href="#cb45-3"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="split-text-2" class="slide level2">
+<section id="split-text" class="slide level2">
 <h2>Split text</h2>
 <div class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a>md_header_splits <span class="op">=</span> markdown_splitter.split_text(markdown_document)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -922,25 +879,23 @@ Jan Kirenz
 <div class="cell" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a>md_header_splits[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="46">
-
-</div>
 <ul>
 <li class="fragment">Document(page_content=‘Hi this is Jim this is Joe’, metadata={‘Header 1’: ‘Title’, ‘Header 2’: ‘Chapter 1’})</li>
 </ul>
+</div>
+<div class="fragment">
 <div class="cell" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a>md_header_splits[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="47">
-
 </div>
 <ul>
 <li class="fragment">Document(page_content=‘Hi this is Lance’, metadata={‘Header 1’: ‘Title’, ‘Header 2’: ‘Chapter 1’, ‘Header 3’: ‘Section’})</li>
 </ul>
 </div>
-</section>
-<section id="splitting-notion-markdown" class="slide level2">
-<h2>Splitting Notion Markdown</h2>
+</section></section>
+<section>
+<section id="splitting-notion-markdown" class="title-slide slide level1 center">
+<h1>Splitting Notion Markdown</h1>
+
 </section>
 <section id="load-data-1" class="slide level2">
 <h2>Load data</h2>
@@ -954,9 +909,6 @@ Jan Kirenz
 <div class="cell" data-execution_count="49">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a>txt <span class="op">=</span> <span class="st">' '</span>.join([d.page_content <span class="cf">for</span> d <span class="kw">in</span> docs])</span>
 <span id="cb50-2"><a href="#cb50-2"></a>txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="49">
-
 </div>
 <ul>
 <li class="fragment">‘# Getting Started👋 Welcome to Notion!are the basics:- [ ] Click anywhere and just start typing- [ ] Hit <code>/</code> to see all the types of content you can add - headers, videos, sub pages, etc.(https://www.notion.so/Example-sub-page-92f63253929d456bbf12cd696e21e045?pvs=21)- [ ] Highlight any text, and use the menu that pops up to <strong>style</strong> <em>your</em> <del>writing</del> <code>however</code> <a href="https://www.notion.so/product">you</a> like- [ ] See the <code>⋮⋮</code> to the left of this checkbox on hover? Click and drag to move this line- [ ] Click the <code>+ New Page</code> button at the bottom of your sidebar to add a new page- [ ] Click <code>Templates</code> in your sidebar to get started with pre-built pages- This is a toggle block. Click the little triangle to see more useful tips!- <a href="https://www.notion.so/181e961aeb5c4ee6915307c0dfd5156d?pvs=21">Template Gallery</a>: More templates built by the Notion community- <a href="https://www.notion.so/e040febf70a94950b8620e6f00005004?pvs=21">Help &amp; Support</a>: ****Guides and FAQs for everything in Notion- Stay organized with your sidebar and nested pages:<img data-src="Getting Started 95e5ecbe48c44e408ef09fed850fbd40/infinitehierarchynodither.gif" alt="Getting%20Started%2095e5ecbe48c44e408ef09fed850fbd40/infinitehierarchynodither.gif">it in action:(https://youtu.be/TL_N2pmh9O0) minute(https://youtu.be/FXIrojSK3Jo) minutes(https://youtu.be/2Pwzff-uffU) minutes(https://youtu.be/O8qdvSxDYNY) minutesour <a href="http://youtube.com/c/notion">YouTube channel</a> to watch 50+ more tutorials👉<strong>Have a question?</strong> Click the <code>?</code> at the bottom right for more guides, or to send us a message.’</li>
@@ -978,7 +930,7 @@ Jan Kirenz
 </div>
 </div>
 </section>
-<section id="split-text-3" class="slide level2">
+<section id="split-text-1" class="slide level2">
 <h2>Split text</h2>
 <div class="cell" data-execution_count="52">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a>md_header_splits <span class="op">=</span> markdown_splitter.split_text(txt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -988,9 +940,6 @@ Jan Kirenz
 <h2>Output</h2>
 <div class="cell" data-execution_count="53">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1"></a>md_header_splits[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="53">
-
 </div>
 <ul>
 <li class="fragment">Document(page_content=‘👋 Welcome to Notion! are the basics: - [ ] Click anywhere and just start typing- [ ] Hit <code>/</code> to see all the types of content you can add - headers, videos, sub pages, etc. (https://www.notion.so/Example-sub-page-92f63253929d456bbf12cd696e21e045?pvs=21) - [ ] Highlight any text, and use the menu that pops up to <strong>style</strong> <em>your</em> <del>writing</del> <code>however</code> <a href="https://www.notion.so/product">you</a> like- [ ] See the <code>⋮⋮</code> to the left of this checkbox on hover? Click and drag to move this line- [ ] Click the <code>+ New Page</code> button at the bottom of your sidebar to add a new page- [ ] Click <code>Templates</code> in your sidebar to get started with pre-built pages- This is a toggle block. Click the little triangle to see more useful tips!- <a href="https://www.notion.so/181e961aeb5c4ee6915307c0dfd5156d?pvs=21">Template Gallery</a>: More templates built by the Notion community- <a href="https://www.notion.so/e040febf70a94950b8620e6f00005004?pvs=21">Help &amp; Support</a>: ****Guides and FAQs for everything in Notion- Stay organized with your sidebar and nested pages: <img data-src="Getting Started 95e5ecbe48c44e408ef09fed850fbd40/infinitehierarchynodither.gif" alt="Getting%20Started%2095e5ecbe48c44e408ef09fed850fbd40/infinitehierarchynodither.gif"> it in action: (https://youtu.be/TL_N2pmh9O0) minute (https://youtu.be/FXIrojSK3Jo) minutes (https://youtu.be/2Pwzff-uffU) minutes (https://youtu.be/O8qdvSxDYNY) minutes our <a href="http://youtube.com/c/notion">YouTube channel</a> to watch 50+ more tutorials 👉<strong>Have a question?</strong> Click the <code>?</code> at the bottom right for more guides, or to send us a message.’, metadata={‘Header 1’: ‘Getting Started’})</li>

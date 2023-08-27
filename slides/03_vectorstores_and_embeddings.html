@@ -423,7 +423,7 @@ Jan Kirenz
 </section>
 <section id="vectorstores-and-embeddings" class="title-slide slide level1 center">
 <h1>Vectorstores and Embeddings</h1>
-
+<p>Dive into the concept of embeddings and explore vector store integrations within LangChain.</p>
 </section>
 
 <section>
@@ -488,12 +488,14 @@ Jan Kirenz
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>splits <span class="op">=</span> text_splitter.split_documents(docs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="fragment">
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="bu">len</span>(splits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li class="fragment">209</li>
 </ul>
+</div>
 </section></section>
 <section>
 <section id="embeddings" class="title-slide slide level1 center">
@@ -505,8 +507,10 @@ Jan Kirenz
 <ul>
 <li class="fragment">Let’s take our splits and embed them.</li>
 </ul>
+<div class="fragment">
 <div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>embedding <span class="op">=</span> OpenAIEmbeddings()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section>
 <section id="examples" class="slide level2">
@@ -594,8 +598,10 @@ Jan Kirenz
 <div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>question <span class="op">=</span> <span class="st">"is there an email i can ask for help"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="fragment">
 <div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>docs <span class="op">=</span> vectordb.similarity_search(question,k<span class="op">=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <div class="fragment">
 <div class="cell" data-execution_count="18">
@@ -620,8 +626,10 @@ Jan Kirenz
 <ul>
 <li class="fragment">Let’s save this so we can use it later!</li>
 </ul>
+<div class="fragment">
 <div class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>vectordb.persist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section></section>
 <section>
@@ -676,21 +684,31 @@ Jan Kirenz
 <div class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>question <span class="op">=</span> <span class="st">"what did they say about regression in the third lecture?"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="fragment">
 <div class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>docs <span class="op">=</span> vectordb.similarity_search(question,k<span class="op">=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
 </section>
-<section id="inspect-data-3" class="slide level2">
+<section id="inspect-data-3" class="slide level2 smaller">
 <h2>Inspect data</h2>
 <div class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a><span class="cf">for</span> doc <span class="kw">in</span> docs:</span>
 <span id="cb27-2"><a href="#cb27-2"></a>    <span class="bu">print</span>(doc.metadata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>{‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture03.pdf’, ‘page’: 0} {‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture03.pdf’, ‘page’: 14} {‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture02.pdf’, ‘page’: 0} {‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture03.pdf’, ‘page’: 6} {‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture01.pdf’, ‘page’: 8}</p>
+<div class="fragment">
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>{<span class="st">'source'</span>: <span class="st">'../docs/cs229_lectures/MachineLearning-Lecture03.pdf'</span>, <span class="st">'page'</span>: <span class="dv">0</span>}</span>
+<span id="cb28-2"><a href="#cb28-2"></a>{<span class="st">'source'</span>: <span class="st">'../docs/cs229_lectures/MachineLearning-Lecture03.pdf'</span>, <span class="st">'page'</span>: <span class="dv">14</span>}</span>
+<span id="cb28-3"><a href="#cb28-3"></a>{<span class="st">'source'</span>: <span class="st">'../docs/cs229_lectures/MachineLearning-Lecture02.pdf'</span>, <span class="st">'page'</span>: <span class="dv">0</span>}</span>
+<span id="cb28-4"><a href="#cb28-4"></a>{<span class="st">'source'</span>: <span class="st">'../docs/cs229_lectures/MachineLearning-Lecture03.pdf'</span>, <span class="st">'page'</span>: <span class="dv">6</span>}</span>
+<span id="cb28-5"><a href="#cb28-5"></a>{<span class="st">'source'</span>: <span class="st">'../docs/cs229_lectures/MachineLearning-Lecture01.pdf'</span>, <span class="st">'page'</span>: <span class="dv">8</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
 <li class="fragment"><p>The question was about the third lecture, but includes results from other lectures as well.</p></li>
 <li class="fragment"><p>We discuss approaches to handle these problems in the next tutorial</p></li>
 </ul>
+</div>
 </section></section>
 <section id="acknowledgments" class="title-slide slide level1 center">
 <h1>Acknowledgments</h1>
