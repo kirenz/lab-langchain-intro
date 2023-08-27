@@ -1167,5 +1167,19 @@
     "title": "Chat",
     "section": "Configurations",
     "text": "Configurations"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#save-data",
+    "href": "slides/01_document_loading.html#save-data",
+    "title": "Document Loading",
+    "section": "Save data",
+    "text": "Save data\n\ndf = pd.DataFrame(docs, columns=['Text', 'Metadata'])\n\n\n\ndf.to_csv('../docs/youtube/codereport.csv')"
+  },
+  {
+    "objectID": "slides/01_document_loading.html#save-data-1",
+    "href": "slides/01_document_loading.html#save-data-1",
+    "title": "Document Loading",
+    "section": "Save data",
+    "text": "Save data\n\ndf = pd.DataFrame(docs, columns=['Text', 'Metadata'])\n\n\n\ndf.to_csv('../docs/url/study-design.csv')"
   }
 ]
