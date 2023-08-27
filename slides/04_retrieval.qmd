@@ -35,7 +35,7 @@ format:
 
 # Vectorstore Retrieval
 
-Retrieval is the centerpiece of our retrieval augmented generation (RAG) flow. 
+Grasp advanced techniques for accessing and indexing data in the vector store, enabling you to retrieve the most relevant information beyond semantic queries.
 
 # Setup
 
@@ -100,7 +100,7 @@ print(vectordb._collection.count())
 
 - 209
 
-## Text
+## Example
 
 ```{python}
 texts = [
@@ -110,13 +110,13 @@ texts = [
 ]
 ```
 
-## Embedding
+. . .
 
 ```{python}
 smalldb = Chroma.from_texts(texts, embedding=embedding)
 ```
 
-## Question
+. . .
 
 ```{python}
 question = "Tell me about all-white mushrooms with large fruiting bodies"
@@ -157,7 +157,9 @@ smalldb.max_marginal_relevance_search(question, k=2, fetch_k=3)
 question = "what did they say about matlab?"
 ```
 
-## Similarity search
+- Similarity search
+
+. . .
 
 ```{python}
 docs_ss = vectordb.similarity_search(question, k=3)
@@ -179,7 +181,7 @@ docs_ss[1].page_content[:100]
 
 - 'those homeworks will be done in either MATLA B or in Octave, which is sort of — I \nknow some people '
 
-## MMR 
+## MMR {.smaller}
 
 
 ```{python}
@@ -187,9 +189,9 @@ docs_mmr = vectordb.max_marginal_relevance_search(question, k=3)
 ```
 
 
-## MMR results
-
 - Note the difference in results with `MMR`.
+
+. . .
 
 ```{python}
 docs_mmr[0].page_content[:100]
@@ -223,7 +225,9 @@ docs_mmr[1].page_content[:100]
 question = "what did they say about regression in the third lecture?"
 ```
 
-## Similarity search
+- Similarity search
+
+. . .
 
 ```{python}
 docs = vectordb.similarity_search(
@@ -297,13 +301,15 @@ retriever = SelfQueryRetriever.from_llm(
 question = "what did they say about regression in the third lecture?"
 ```
 
-## Retriever
+- Retriever
+
+. . .
 
 ```{python}
 docs = retriever.get_relevant_documents(question)
 ```
 
-- **You will receive a warning** about predict_and_parse being deprecated the first time you executing the next line. This can be safely ignored.
+- *You will receive a warning* about predict_and_parse being deprecated the first time you executing the next line. This can be safely ignored.
 
 ## Result
 
@@ -312,10 +318,14 @@ for doc in docs:
     print(doc.metadata)
 ```
 
+
+
+```markdown
 {'source': '../docs/cs229_lectures/MachineLearning-Lecture03.pdf', 'page': 14}
 {'source': '../docs/cs229_lectures/MachineLearning-Lecture03.pdf', 'page': 0}
 {'source': '../docs/cs229_lectures/MachineLearning-Lecture03.pdf', 'page': 10}
 {'source': '../docs/cs229_lectures/MachineLearning-Lecture03.pdf', 'page': 10}
+```
 
 # Additional Tricks: Compression
 
@@ -365,19 +375,21 @@ question = "what did they say about matlab?"
 
 ```
 
+- Retriever
 
-## Retriever
+. . .
 
 ```{python}
 compressed_docs = compression_retriever.get_relevant_documents(question)
 ```
 
-## Result
+## Result {.smaller}
 
 ```{python}
 pretty_print_docs(compressed_docs)
 ```
 
+```markdown
 Document 1:
 
 "MATLAB is I guess part of the programming language that makes it very easy to write codes using matrices, to write code for numerical routines, to move data around, to plot data. And it's sort of an extremely easy to learn tool to use for implementing a lot of learning algorithms."
@@ -393,7 +405,7 @@ Document 3:
 Document 4:
 
 "And the student said, "Oh, it was the MATLAB." So for those of you that don't know MATLAB yet, I hope you do learn it. It's not hard, and we'll actually have a short MATLAB tutorial in one of the discussion sections for those of you that don't know it."
-
+```
 
 # Combining Various Techniques
 
@@ -412,7 +424,9 @@ compression_retriever = ContextualCompressionRetriever(
 question = "what did they say about matlab?"
 ```
 
-## Retriever
+ - Retriever
+
+. . .
 
 ```{python}
 compressed_docs = compression_retriever.get_relevant_documents(question)
@@ -425,6 +439,8 @@ compressed_docs = compression_retriever.get_relevant_documents(question)
 pretty_print_docs(compressed_docs)
 ```
 
+```markdown
+
 Document 1:
 
 "MATLAB is I guess part of the programming language that makes it very easy to write codes using matrices, to write code for numerical routines, to move data around, to plot data. And it's sort of an extremely easy to learn tool to use for implementing a lot of learning algorithms."
@@ -432,6 +448,7 @@ Document 1:
 Document 2:
 
 "And the student said, "Oh, it was the MATLAB." So for those of you that don't know MATLAB yet, I hope you do learn it. It's not hard, and we'll actually have a short MATLAB tutorial in one of the discussion sections for those of you that don't know it."
+```
 
 # Other Types of Retrieval
 
@@ -469,6 +486,8 @@ splits = text_splitter.split_text(joined_page_text)
 
 - [Support vector machine (SVMs) retriever](https://python.langchain.com/docs/integrations/retrievers/svm)
 
+. . .
+
 ```{python}
 # Retrieve
 svm_retriever = SVMRetriever.from_texts(splits, embedding)
@@ -483,11 +502,6 @@ svm_retriever = SVMRetriever.from_texts(splits, embedding)
 tfidf_retriever = TFIDFRetriever.from_texts(splits)
 ```
 
-## Question
-
-```{python}
-
-```
 
 ## SVM retriever {.smaller}
 
