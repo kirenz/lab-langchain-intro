@@ -35,6 +35,8 @@ format:
 
 # Document Loading
 
+Learn the fundamentals of data loading and discover over 80 unique loaders LangChain provides to access diverse data sources, including audio and video.
+
 # Setup
 
 ## Python
