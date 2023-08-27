@@ -2,7 +2,7 @@
 title: "Welcome 👋"
 ---
 
-*Lab "Name" (📁 )*
+Welcome to the lab *"Langchain intro"* 
 
 In this lab you will ...
 
@@ -12,7 +12,4 @@ Make sure you meet all the [requirements](/requirements.qmd) and have read the l
 
 What you will learn in this lab:
 
-- How to set up a MySQL database
-- Use SQL for data analysis
-- Make use of Pandas for data analysis in Python
-- Use Altair for data visualization in Python 
+- 
