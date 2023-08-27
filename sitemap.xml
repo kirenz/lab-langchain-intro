@@ -2,50 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/requirements.html</loc>
-    <lastmod>2023-08-27T11:37:19.759Z</lastmod>
+    <lastmod>2023-08-27T14:34:00.237Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/slides/01_document_loading.html</loc>
-    <lastmod>2023-08-27T11:37:18.791Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/slides/02_document_splitting.html</loc>
-    <lastmod>2023-08-27T11:37:15.067Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/slides/05_question_answering.html</loc>
-    <lastmod>2023-08-27T11:37:12.207Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/docs/Notion_DB/Getting Started 95e5ecbe48c44e408ef09fed850fbd40.html</loc>
-    <lastmod>2023-08-27T11:37:11.291Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/assignments.html</loc>
-    <lastmod>2023-08-27T11:37:10.471Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/slide.html</loc>
-    <lastmod>2023-08-27T11:37:09.703Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/index.html</loc>
-    <lastmod>2023-08-27T11:37:10.863Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/code/notebook.html</loc>
-    <lastmod>2023-08-27T11:37:11.671Z</lastmod>
+    <lastmod>2023-08-27T14:33:58.129Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/slides/03_vectorstores_and_embeddings.html</loc>
-    <lastmod>2023-08-27T11:37:12.739Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/slides/04_retrieval.html</loc>
-    <lastmod>2023-08-27T11:37:16.091Z</lastmod>
+    <lastmod>2023-08-27T14:33:55.917Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/kirenz/lab-langchain-intro/slides/06_chat.html</loc>
-    <lastmod>2023-08-27T11:37:19.371Z</lastmod>
+    <lastmod>2023-08-27T14:33:53.993Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/kirenz/lab-langchain-intro/docs/Notion_DB/Getting Started 95e5ecbe48c44e408ef09fed850fbd40.html</loc>
+    <lastmod>2023-08-27T14:33:51.637Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/kirenz/lab-langchain-intro/assignments.html</loc>
+    <lastmod>2023-08-27T14:33:50.721Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/kirenz/lab-langchain-intro/slide.html</loc>
+    <lastmod>2023-08-27T14:33:49.849Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/kirenz/lab-langchain-intro/index.html</loc>
+    <lastmod>2023-08-27T14:33:51.185Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/kirenz/lab-langchain-intro/code/notebook.html</loc>
+    <lastmod>2023-08-27T14:33:52.073Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/kirenz/lab-langchain-intro/slides/05_question_answering.html</loc>
+    <lastmod>2023-08-27T14:33:54.949Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/kirenz/lab-langchain-intro/slides/02_document_splitting.html</loc>
+    <lastmod>2023-08-27T14:33:57.353Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/kirenz/lab-langchain-intro/slides/04_retrieval.html</loc>
+    <lastmod>2023-08-27T14:33:59.301Z</lastmod>
   </url>
 </urlset>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Langchain - Slides</title>
+<title>Langchain intro - Slides</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Langchain</span>
+    <span class="navbar-title">Langchain intro</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -114,7 +114,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#txt" id="toc-txt" class="nav-link active" data-scroll-target="#txt"><span class="header-section-number">1</span> Txt</a></li>
+  <li><a href="#document-loading" id="toc-document-loading" class="nav-link active" data-scroll-target="#document-loading"><span class="header-section-number">1</span> Document Loading</a></li>
+  <li><a href="#document-splitting" id="toc-document-splitting" class="nav-link" data-scroll-target="#document-splitting"><span class="header-section-number">2</span> Document Splitting</a></li>
+  <li><a href="#vector-stores-and-embeddings" id="toc-vector-stores-and-embeddings" class="nav-link" data-scroll-target="#vector-stores-and-embeddings"><span class="header-section-number">3</span> Vector stores and embeddings</a></li>
+  <li><a href="#retrieval" id="toc-retrieval" class="nav-link" data-scroll-target="#retrieval"><span class="header-section-number">4</span> Retrieval</a></li>
+  <li><a href="#question-answering" id="toc-question-answering" class="nav-link" data-scroll-target="#question-answering"><span class="header-section-number">5</span> Question Answering</a></li>
+  <li><a href="#chat-system" id="toc-chat-system" class="nav-link" data-scroll-target="#chat-system"><span class="header-section-number">6</span> Chat System</a></li>
   </ul>
 </nav>
     </div>
@@ -138,7 +143,8 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><em>The following tutorials are mainly based on the excellent course <a href="https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/">“LangChain: Chat with Your DataI”</a> provided by Harrison Chase from LangChain and Andrew Ng from DeepLearning.AI.</em></p>
+<p><em>The following tutorials are mainly based on the excellent course <a href="https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/">“LangChain: Chat with Your DataI”</a> provided by Harrison Chase from LangChain and Andrew Ng from DeepLearning.AI and cover the following topics:</em></p>
+<p><img src="./images/rag.png" class="img-fluid"></p>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -150,9 +156,9 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-<section id="txt" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="txt"><span class="header-section-number">1</span> Txt</h2>
-<p>In this tutorial, you’ll learn:</p>
+<section id="document-loading" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="document-loading"><span class="header-section-number">1</span> Document Loading</h2>
+<p>Learn the fundamentals of data loading and discover over 80 unique loaders LangChain provides to access diverse data sources, including audio and video:</p>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -160,7 +166,92 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="callout-body-container">
 <ul>
-<li><a href="">🖥️ Presentation</a></li>
+<li><a href="./slides/01_document_loading.html">🖥️ Presentation</a></li>
+<li><a href="">💻 Jupyter Notebook</a></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="document-splitting" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="document-splitting"><span class="header-section-number">2</span> Document Splitting</h2>
+<p>In the context of building LLM-related applications, splitting is the process of breaking down large pieces of text into smaller segments:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ul>
+<li><a href="./slides/02_document_splitting.html">🖥️ Presentation</a></li>
+<li><a href="">💻 Jupyter Notebook</a></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="vector-stores-and-embeddings" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="vector-stores-and-embeddings"><span class="header-section-number">3</span> Vector stores and embeddings</h2>
+<p>Learn the concept of embeddings and explore vector store integrations within LangChain.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ul>
+<li><a href="./slides/03_vectorstores_and_embeddings.html">🖥️ Presentation</a></li>
+<li><a href="">💻 Jupyter Notebook</a></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="retrieval" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="retrieval"><span class="header-section-number">4</span> Retrieval</h2>
+<p>Learn advanced techniques for accessing and indexing data in the vector store, enabling you to retrieve the most relevant information beyond semantic queries:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ul>
+<li><a href="./slides/04_retrieval.html">🖥️ Presentation</a></li>
+<li><a href="">💻 Jupyter Notebook</a></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="question-answering" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="question-answering"><span class="header-section-number">5</span> Question Answering</h2>
+<p>Build a one-pass question-answering solution.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ul>
+<li><a href="./slides/05_question_answering.html">🖥️ Presentation</a></li>
+<li><a href="">💻 Jupyter Notebook</a></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="chat-system" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="chat-system"><span class="header-section-number">6</span> Chat System</h2>
+<p>Learn how to track and select pertinent information from conversations and data sources, as you build your own chatbot using LangChain.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ul>
+<li><a href="./slides/06_chat.html">🖥️ Presentation</a></li>
 <li><a href="">💻 Jupyter Notebook</a></li>
 </ul>
 </div>
