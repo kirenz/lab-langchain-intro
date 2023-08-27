@@ -493,9 +493,6 @@ Jan Kirenz
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="bu">len</span>(pages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="3">
-
-</div>
 <ul>
 <li class="fragment">22</li>
 </ul>
@@ -508,9 +505,6 @@ Jan Kirenz
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>page.metadata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="5">
-
-</div>
 <ul>
 <li class="fragment">{‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture01.pdf’, ‘page’: 0}</li>
 </ul>
@@ -520,9 +514,6 @@ Jan Kirenz
 <h2>Inspect content</h2>
 <div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="bu">print</span>(page.page_content[<span class="dv">0</span>:<span class="dv">500</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="6">
-
 </div>
 <ul>
 <li class="fragment">MachineLearning-Lecture01<br>
@@ -546,8 +537,9 @@ By way of introduction, my name’s Andrew Ng and I’ll be instru ctor for this
 <h2>Example</h2>
 <p>Let’s load the “Code Report” about Vector databases from Fireship</p>
 <p></p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/klTvEwg3oJ4?si=VPuxdiw9QaWfIqbD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
-</iframe>
+<!---
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/klTvEwg3oJ4?si=VPuxdiw9QaWfIqbD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
+--->
 </section>
 <section id="load-youtube-video" class="slide level2">
 <h2>Load YouTube video</h2>
@@ -572,9 +564,6 @@ By way of introduction, my name’s Andrew Ng and I’ll be instru ctor for this
 <div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>docs[<span class="dv">0</span>].page_content[<span class="dv">0</span>:<span class="dv">500</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="8">
-
-</div>
 <ul>
 <li class="fragment">“It is April 7th, 2023, and you’re watching The Code Report. One month ago, Vector Database Weaviate landed $16 million in Series A funding. Last week, PineconeDB just got a check for $28 million at a $700 million valuation. And yesterday, Chroma, an open source project with only 1.2 GitHub stars, raised $18 million for its Embeddings database. And I just launched my own Vector database this morning. We’re currently pre-revenue, pre-vision, and pre-code, and valued at $420 million. Leave your cre”</li>
 </ul>
@@ -583,9 +572,6 @@ By way of introduction, my name’s Andrew Ng and I’ll be instru ctor for this
 <h2>Save as DataFrame</h2>
 <div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>df <span class="op">=</span> pd.DataFrame(docs, columns<span class="op">=</span>[<span class="st">'Text'</span>, <span class="st">'Metadata'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="9">
-
 </div>
 </section>
 <section id="save-as-csv" class="slide level2">
@@ -620,9 +606,6 @@ By way of introduction, my name’s Andrew Ng and I’ll be instru ctor for this
 <div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="bu">print</span>(docs[<span class="dv">0</span>].page_content[<span class="dv">400</span>:<span class="dv">800</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="12">
-
-</div>
 <ul>
 <li class="fragment">ampling. Knowing how the observational units were selected from a larger entity will allow for generalizations back to the population from which the data were randomly selected. Additionally, by understanding the structure of the study, causal relationships can be separated from those relationships which are only associated. A good question to ask oneself before working with the data at all is, “H</li>
 </ul>
@@ -631,9 +614,6 @@ By way of introduction, my name’s Andrew Ng and I’ll be instru ctor for this
 <h2>Save as DataFrame</h2>
 <div class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>df <span class="op">=</span> pd.DataFrame(docs, columns<span class="op">=</span>[<span class="st">'Text'</span>, <span class="st">'Metadata'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="13">
-
 </div>
 </section>
 <section id="save-as-csv-1" class="slide level2">
@@ -650,9 +630,12 @@ By way of introduction, my name’s Andrew Ng and I’ll be instru ctor for this
 <section id="example-3" class="slide level2">
 <h2>Example</h2>
 <ul>
-<li class="fragment"><p>Follow the steps <a href="https://python.langchain.com/docs/modules/data_connection/document_loaders/integrations/notion">here</a> for an example Notion site such as <a href="https://yolospace.notion.site/Blendle-s-Employee-Handbook-e31bff7da17346ee99f531087d8b133f">this one</a>:</p></li>
-<li class="fragment"><p>Duplicate the page into your own Notion space and export as <code>Markdown / CSV</code>.</p></li>
-<li class="fragment"><p>Unzip it and save it as a folder that contains the markdown file for the Notion page.</p></li>
+<li class="fragment"><p>Option 1: Simply use the example data provided in <code>langchain-intro/docs/Notion_DB</code></p></li>
+<li class="fragment"><p>Option 2: Follow the steps <a href="https://python.langchain.com/docs/modules/data_connection/document_loaders/integrations/notion">here</a> for an example Notion site such as <a href="https://yolospace.notion.site/Blendle-s-Employee-Handbook-e31bff7da17346ee99f531087d8b133f">this one</a></p>
+<ul>
+<li class="fragment">Duplicate the page into your own Notion space and export as <code>Markdown / CSV</code>.</li>
+<li class="fragment">Unzip it and save it as a folder that contains the markdown file for the Notion page.</li>
+</ul></li>
 </ul>
 </section>
 <section id="load-notion" class="slide level2">
@@ -667,9 +650,6 @@ By way of introduction, my name’s Andrew Ng and I’ll be instru ctor for this
 <div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="bu">print</span>(docs[<span class="dv">0</span>].page_content[<span class="dv">0</span>:<span class="dv">200</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="16">
-
-</div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu"># Getting Started</span></span>
 <span id="cb17-2"><a href="#cb17-2"></a></span>
 <span id="cb17-3"><a href="#cb17-3"></a>👋 Welcome to Notion!</span>
@@ -683,9 +663,6 @@ By way of introduction, my name’s Andrew Ng and I’ll be instru ctor for this
 <h2>Inspect data</h2>
 <div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>docs[<span class="dv">0</span>].metadata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="17">
-
 </div>
 <ul>
 <li class="fragment">{‘source’: ‘../docs/Notion_DB/Getting Started 95e5ecbe48c44e408ef09fed850fbd40.md’}</li>
