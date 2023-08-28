@@ -21,7 +21,7 @@ Learn the fundamentals of data loading and discover over 80 unique loaders LangC
 
 ::: {.callout-tip appearance="simple" icon=false}
 - [🖥️ Presentation](/slides/01_document_loading.qmd)
-- [💻 Jupyter Notebook]()
+- [💻 Jupyter Notebook](https://colab.research.google.com/github/kirenz/lab-langchain-rag/blob/main/code/01_document_loading.ipynb)
 :::
 
 
@@ -31,7 +31,7 @@ In the context of building LLM-related applications, splitting is the process of
 
 ::: {.callout-tip appearance="simple" icon=false}
 - [🖥️ Presentation](/slides/02_document_splitting.qmd)
-- [💻 Jupyter Notebook]()
+- [💻 Jupyter Notebook](https://colab.research.google.com/github/kirenz/lab-langchain-rag/blob/main/code/02_document_splitting.ipynb)
 :::
 
 ## Vector stores and embeddings
@@ -40,7 +40,7 @@ Learn the concept of embeddings and explore vector store integrations within Lan
 
 ::: {.callout-tip appearance="simple" icon=false}
 - [🖥️ Presentation](/slides/03_vectorstores_and_embeddings.qmd)
-- [💻 Jupyter Notebook]()
+- [💻 Jupyter Notebook](https://colab.research.google.com/github/kirenz/lab-langchain-rag/blob/main/code/03_vectorstores_and_embeddings.ipynb)
 :::
 
 ## Retrieval
@@ -49,7 +49,7 @@ Learn advanced techniques for accessing and indexing data in the vector store, e
 
 ::: {.callout-tip appearance="simple" icon=false}
 - [🖥️ Presentation](/slides/04_retrieval.qmd)
-- [💻 Jupyter Notebook]()
+- [💻 Jupyter Notebook](https://colab.research.google.com/github/kirenz/lab-langchain-rag/blob/main/code/04_retrieval.ipynb)
 :::
 
 
@@ -59,7 +59,7 @@ Build a one-pass question-answering solution.
 
 ::: {.callout-tip appearance="simple" icon=false}
 - [🖥️ Presentation](/slides/05_question_answering.qmd)
-- [💻 Jupyter Notebook]()
+- [💻 Jupyter Notebook](https://colab.research.google.com/github/kirenz/lab-langchain-rag/blob/main/code/05_question_answering.ipynb)
 :::
 
 ## Chat System
@@ -68,5 +68,5 @@ Learn how to track and select pertinent information from conversations and data 
 
 ::: {.callout-tip appearance="simple" icon=false}
 - [🖥️ Presentation](/slides/06_chat.qmd)
-- [💻 Jupyter Notebook]()
+- [💻 Jupyter Notebook](https://colab.research.google.com/github/kirenz/lab-langchain-rag/blob/main/code/06_chat.ipynb)
 :::
