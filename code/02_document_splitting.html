@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Langchain RAG - Document Splitting</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="..//images/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Langchain RAG</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../slide.html" rel="" target="">
+ <span class="menu-text">Slides</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../requirements.html" rel="" target="">
+ <span class="menu-text">Requirements</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignments.html" rel="" target="">
+ <span class="menu-text">Assignments</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a>
+  <ul class="collapse">
+  <li><a href="#python" id="toc-python" class="nav-link" data-scroll-target="#python">Python</a></li>
+  </ul></li>
+  <li><a href="#splitting" id="toc-splitting" class="nav-link" data-scroll-target="#splitting">Splitting</a>
+  <ul class="collapse">
+  <li><a href="#character-text-splitter" id="toc-character-text-splitter" class="nav-link" data-scroll-target="#character-text-splitter">Character Text Splitter</a></li>
+  <li><a href="#text-1" id="toc-text-1" class="nav-link" data-scroll-target="#text-1">Text 1</a></li>
+  <li><a href="#text-2" id="toc-text-2" class="nav-link" data-scroll-target="#text-2">Text 2</a></li>
+  <li><a href="#text-3" id="toc-text-3" class="nav-link" data-scroll-target="#text-3">Text 3</a></li>
+  <li><a href="#charactertextsplitter" id="toc-charactertextsplitter" class="nav-link" data-scroll-target="#charactertextsplitter">CharacterTextSplitter</a></li>
+  </ul></li>
+  <li><a href="#recursive-splitting-details" id="toc-recursive-splitting-details" class="nav-link" data-scroll-target="#recursive-splitting-details">Recursive Splitting Details</a>
+  <ul class="collapse">
+  <li><a href="#recursivecharactertextsplitter" id="toc-recursivecharactertextsplitter" class="nav-link" data-scroll-target="#recursivecharactertextsplitter">RecursiveCharacterTextSplitter</a></li>
+  <li><a href="#define-splitter" id="toc-define-splitter" class="nav-link" data-scroll-target="#define-splitter">Define splitter</a></li>
+  <li><a href="#character-splitter-output" id="toc-character-splitter-output" class="nav-link" data-scroll-target="#character-splitter-output">Character Splitter output</a></li>
+  <li><a href="#recursive-splitter-output" id="toc-recursive-splitter-output" class="nav-link" data-scroll-target="#recursive-splitter-output">Recursive Splitter output</a></li>
+  <li><a href="#adapt-splitter-1" id="toc-adapt-splitter-1" class="nav-link" data-scroll-target="#adapt-splitter-1">Adapt splitter 1</a></li>
+  <li><a href="#adapt-splitter-2" id="toc-adapt-splitter-2" class="nav-link" data-scroll-target="#adapt-splitter-2">Adapt splitter 2</a></li>
+  </ul></li>
+  <li><a href="#split-a-document" id="toc-split-a-document" class="nav-link" data-scroll-target="#split-a-document">Split a Document</a>
+  <ul class="collapse">
+  <li><a href="#load-pdf" id="toc-load-pdf" class="nav-link" data-scroll-target="#load-pdf">Load PDF</a></li>
+  <li><a href="#define-splitter-1" id="toc-define-splitter-1" class="nav-link" data-scroll-target="#define-splitter-1">Define splitter</a></li>
+  <li><a href="#split-document" id="toc-split-document" class="nav-link" data-scroll-target="#split-document">Split document</a></li>
+  <li><a href="#inspect-data" id="toc-inspect-data" class="nav-link" data-scroll-target="#inspect-data">Inspect data</a></li>
+  <li><a href="#inspect-data-1" id="toc-inspect-data-1" class="nav-link" data-scroll-target="#inspect-data-1">Inspect data</a></li>
+  </ul></li>
+  <li><a href="#split-notion-data" id="toc-split-notion-data" class="nav-link" data-scroll-target="#split-notion-data">Split Notion data</a>
+  <ul class="collapse">
+  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data">Load data</a></li>
+  <li><a href="#define-splitter-2" id="toc-define-splitter-2" class="nav-link" data-scroll-target="#define-splitter-2">Define splitter</a></li>
+  <li><a href="#split-document-1" id="toc-split-document-1" class="nav-link" data-scroll-target="#split-document-1">Split document</a></li>
+  <li><a href="#inspect-data-2" id="toc-inspect-data-2" class="nav-link" data-scroll-target="#inspect-data-2">Inspect data</a></li>
+  <li><a href="#inspect-data-smaller" id="toc-inspect-data-smaller" class="nav-link" data-scroll-target="#inspect-data-smaller">Inspect data {smaller}</a></li>
+  </ul></li>
+  <li><a href="#token-splitting" id="toc-token-splitting" class="nav-link" data-scroll-target="#token-splitting">Token splitting</a>
+  <ul class="collapse">
+  <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics">Basics</a></li>
+  <li><a href="#tokentextsplitter-1" id="toc-tokentextsplitter-1" class="nav-link" data-scroll-target="#tokentextsplitter-1">TokenTextSplitter 1</a></li>
+  <li><a href="#tokentextsplitter-2" id="toc-tokentextsplitter-2" class="nav-link" data-scroll-target="#tokentextsplitter-2">TokenTextSplitter 2</a></li>
+  </ul></li>
+  <li><a href="#context-aware-splitting-with-markdown" id="toc-context-aware-splitting-with-markdown" class="nav-link" data-scroll-target="#context-aware-splitting-with-markdown">Context Aware Splitting with Markdown</a>
+  <ul class="collapse">
+  <li><a href="#basics-1" id="toc-basics-1" class="nav-link" data-scroll-target="#basics-1">Basics</a></li>
+  <li><a href="#markdown-example" id="toc-markdown-example" class="nav-link" data-scroll-target="#markdown-example">Markdown example</a></li>
+  <li><a href="#headers-to-split-on" id="toc-headers-to-split-on" class="nav-link" data-scroll-target="#headers-to-split-on">Headers to split on</a></li>
+  <li><a href="#markdownheadertextsplitter" id="toc-markdownheadertextsplitter" class="nav-link" data-scroll-target="#markdownheadertextsplitter">MarkdownHeaderTextSplitter</a></li>
+  <li><a href="#split-text" id="toc-split-text" class="nav-link" data-scroll-target="#split-text">Split text</a></li>
+  </ul></li>
+  <li><a href="#splitting-notion-markdown" id="toc-splitting-notion-markdown" class="nav-link" data-scroll-target="#splitting-notion-markdown">Splitting Notion Markdown</a>
+  <ul class="collapse">
+  <li><a href="#load-data-1" id="toc-load-data-1" class="nav-link" data-scroll-target="#load-data-1">Load data</a></li>
+  <li><a href="#join-data" id="toc-join-data" class="nav-link" data-scroll-target="#join-data">Join data</a></li>
+  <li><a href="#define-splitter-3" id="toc-define-splitter-3" class="nav-link" data-scroll-target="#define-splitter-3">Define Splitter</a></li>
+  <li><a href="#split-text-1" id="toc-split-text-1" class="nav-link" data-scroll-target="#split-text-1">Split text</a></li>
+  <li><a href="#output" id="toc-output" class="nav-link" data-scroll-target="#output">Output</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Document Splitting</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Discover the best practices and considerations for splitting data.</p>
+<section id="setup" class="level1">
+<h1>Setup</h1>
+<section id="python" class="level2">
+<h2 class="anchored" data-anchor-id="python">Python</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.text_splitter <span class="im">import</span> MarkdownHeaderTextSplitter</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.text_splitter <span class="im">import</span> TokenTextSplitter</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.document_loaders <span class="im">import</span> NotionDirectoryLoader</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.text_splitter <span class="im">import</span> CharacterTextSplitter</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.document_loaders <span class="im">import</span> PyPDFLoader</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.text_splitter <span class="im">import</span> RecursiveCharacterTextSplitter, CharacterTextSplitter</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv, find_dotenv</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openai</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># import sys</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># sys.path.append('../..')</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> load_dotenv(find_dotenv())  <span class="co"># read local .env file</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>openai.api_key <span class="op">=</span> os.environ[<span class="st">'OPENAI_API_KEY'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="splitting" class="level1">
+<h1>Splitting</h1>
+<section id="character-text-splitter" class="level2">
+<h2 class="anchored" data-anchor-id="character-text-splitter">Character Text Splitter</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>chunk_size <span class="op">=</span> <span class="dv">26</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>chunk_overlap <span class="op">=</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>r_splitter <span class="op">=</span> RecursiveCharacterTextSplitter(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    chunk_size<span class="op">=</span>chunk_size,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    chunk_overlap<span class="op">=</span>chunk_overlap</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>c_splitter <span class="op">=</span> CharacterTextSplitter(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    chunk_size<span class="op">=</span>chunk_size,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    chunk_overlap<span class="op">=</span>chunk_overlap</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="text-1" class="level2">
+<h2 class="anchored" data-anchor-id="text-1">Text 1</h2>
+<ul>
+<li>Why doesn’t this split the string below?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>text1 <span class="op">=</span> <span class="st">'abcdefghijklmnopqrstuvwxyz'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>r_splitter.split_text(text1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>[‘abcdefghijklmnopqrstuvwxyz’]</li>
+</ul>
+</section>
+<section id="text-2" class="level2">
+<h2 class="anchored" data-anchor-id="text-2">Text 2</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>text2 <span class="op">=</span> <span class="st">'abcdefghijklmnopqrstuvwxyzabcdefg'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>r_splitter.split_text(text2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>[‘abcdefghijklmnopqrstuvwxyz’, ‘wxyzabcdefg’]</li>
+</ul>
+</section>
+<section id="text-3" class="level2">
+<h2 class="anchored" data-anchor-id="text-3">Text 3</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>text3 <span class="op">=</span> <span class="st">"a b c d e f g h i j k l m n o p q r s t u v w x y z"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>r_splitter.split_text(text3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>[‘a b c d e f g h i j k l m’, ‘l m n o p q r s t u v w x’, ‘w x y z’]</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>c_splitter.split_text(text3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>[‘a b c d e f g h i j k l m n o p q r s t u v w x y z’]</li>
+</ul>
+</section>
+<section id="charactertextsplitter" class="level2">
+<h2 class="anchored" data-anchor-id="charactertextsplitter">CharacterTextSplitter</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>c_splitter <span class="op">=</span> CharacterTextSplitter(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    chunk_size<span class="op">=</span>chunk_size,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    chunk_overlap<span class="op">=</span>chunk_overlap,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    separator<span class="op">=</span><span class="st">' '</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>c_splitter.split_text(text3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>[‘a b c d e f g h i j k l m’, ‘l m n o p q r s t u v w x’, ‘w x y z’]</li>
+</ul>
+</section>
+</section>
+<section id="recursive-splitting-details" class="level1">
+<h1>Recursive Splitting Details</h1>
+<section id="recursivecharactertextsplitter" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="recursivecharactertextsplitter">RecursiveCharacterTextSplitter</h2>
+<ul>
+<li><code>RecursiveCharacterTextSplitter</code> is recommended for generic text.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>some_text <span class="op">=</span> <span class="st">"""When writing documents, writers will use document structure to group content. </span><span class="ch">\</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="st">This can convey to the reader, which idea's are related. For example, closely related ideas </span><span class="ch">\</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="st">are in sentances. Similar ideas are in paragraphs. Paragraphs form a document. </span><span class="ch">\n\n</span><span class="st">  </span><span class="ch">\</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="st">Paragraphs are often delimited with a carriage return or two carriage returns. </span><span class="ch">\</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="st">Carriage returns are the "backslash n" you see embedded in this string. </span><span class="ch">\</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="st">Sentences have a period at the end, but also, have a space.</span><span class="ch">\</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="st">and words are separated by space."""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="define-splitter" class="level2">
+<h2 class="anchored" data-anchor-id="define-splitter">Define splitter</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>c_splitter <span class="op">=</span> CharacterTextSplitter(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    chunk_size<span class="op">=</span><span class="dv">450</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    chunk_overlap<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    separator<span class="op">=</span><span class="st">' '</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>r_splitter <span class="op">=</span> RecursiveCharacterTextSplitter(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    chunk_size<span class="op">=</span><span class="dv">450</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    chunk_overlap<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    separators<span class="op">=</span>[<span class="st">"</span><span class="ch">\n\n</span><span class="st">"</span>, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, <span class="st">" "</span>, <span class="st">""</span>]</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="character-splitter-output" class="level2">
+<h2 class="anchored" data-anchor-id="character-splitter-output">Character Splitter output</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>c_splitter.split_text(some_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>[‘When writing documents, writers will use document structure to group content. This can convey to the reader, which idea's are related. For example, closely related ideas are in sentances. Similar ideas are in paragraphs. Paragraphs form a document. Paragraphs are often delimited with a carriage return or two carriage returns. Carriage returns are the “backslash n” you see embedded in this string. Sentences have a period at the end, but also,’, ‘have a space.and words are separated by space.’]</li>
+</ul>
+</section>
+<section id="recursive-splitter-output" class="level2">
+<h2 class="anchored" data-anchor-id="recursive-splitter-output">Recursive Splitter output</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>r_splitter.split_text(some_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>[“When writing documents, writers will use document structure to group content. This can convey to the reader, which idea’s are related. For example, closely related ideas are in sentances. Similar ideas are in paragraphs. Paragraphs form a document.”, ‘Paragraphs are often delimited with a carriage return or two carriage returns. Carriage returns are the “backslash n” you see embedded in this string. Sentences have a period at the end, but also, have a space.and words are separated by space.’]</li>
+</ul>
+</section>
+<section id="adapt-splitter-1" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="adapt-splitter-1">Adapt splitter 1</h2>
+<ul>
+<li>Let’s reduce the chunk size a bit and add a period to our separators:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>r_splitter <span class="op">=</span> RecursiveCharacterTextSplitter(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    chunk_size<span class="op">=</span><span class="dv">150</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    chunk_overlap<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    separators<span class="op">=</span>[<span class="st">"</span><span class="ch">\n\n</span><span class="st">"</span>, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, <span class="st">"\. "</span>, <span class="st">" "</span>, <span class="st">""</span>]</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>r_splitter.split_text(some_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>[“When writing documents, writers will use document structure to group content. This can convey to the reader, which idea’s are related”, ‘. For example, closely related ideas are in sentances. Similar ideas are in paragraphs. Paragraphs form a document.’, ‘Paragraphs are often delimited with a carriage return or two carriage returns’, ‘. Carriage returns are the “backslash n” you see embedded in this string’, ‘. Sentences have a period at the end, but also, have a space.and words are separated by space.’]</li>
+</ul>
+</section>
+<section id="adapt-splitter-2" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="adapt-splitter-2">Adapt splitter 2</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>r_splitter <span class="op">=</span> RecursiveCharacterTextSplitter(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    chunk_size<span class="op">=</span><span class="dv">150</span>,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    chunk_overlap<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    separators<span class="op">=</span>[<span class="st">"</span><span class="ch">\n\n</span><span class="st">"</span>, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, <span class="st">"(?&lt;=\. )"</span>, <span class="st">" "</span>, <span class="st">""</span>]</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>r_splitter.split_text(some_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>r_splitter.split_text(some_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>[“When writing documents, writers will use document structure to group content. This can convey to the reader, which idea’s are related.”, ‘For example, closely related ideas are in sentances. Similar ideas are in paragraphs. Paragraphs form a document.’, ‘Paragraphs are often delimited with a carriage return or two carriage returns.’, ‘Carriage returns are the “backslash n” you see embedded in this string.’, ‘Sentences have a period at the end, but also, have a space.and words are separated by space.’]</li>
+</ul>
+</section>
+</section>
+<section id="split-a-document" class="level1">
+<h1>Split a Document</h1>
+<section id="load-pdf" class="level2">
+<h2 class="anchored" data-anchor-id="load-pdf">Load PDF</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>loader <span class="op">=</span> PyPDFLoader(<span class="st">"../docs/cs229_lectures/MachineLearning-Lecture01.pdf"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>pages <span class="op">=</span> loader.load()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="define-splitter-1" class="level2">
+<h2 class="anchored" data-anchor-id="define-splitter-1">Define splitter</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>text_splitter <span class="op">=</span> CharacterTextSplitter(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    separator<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span>,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    chunk_size<span class="op">=</span><span class="dv">1000</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    chunk_overlap<span class="op">=</span><span class="dv">150</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    length_function<span class="op">=</span><span class="bu">len</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="split-document" class="level2">
+<h2 class="anchored" data-anchor-id="split-document">Split document</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> text_splitter.split_documents(pages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="inspect-data" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-data">Inspect data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(docs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>77</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(pages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>22</li>
+</ul>
+</section>
+<section id="inspect-data-1" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-data-1">Inspect data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(docs[<span class="dv">0</span>].page_content[<span class="dv">300</span>:<span class="dv">800</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>my name’s Andrew Ng and I’ll be instru ctor for this class. And so I personally work in machine learning, and I’ ve worked on it for about 15 years now, and I actually think that machine learning is th e most exciting field of all the computer sciences. So I’m actually always excited about teaching this class. Sometimes I actually think that machine learning is not only the most exciting thin g in computer science, but the most exciting thing in all of human e ndeavor, so maybe a little b</li>
+</ul>
+</section>
+</section>
+<section id="split-notion-data" class="level1">
+<h1>Split Notion data</h1>
+<section id="load-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-data">Load data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>loader <span class="op">=</span> NotionDirectoryLoader(<span class="st">"../docs/Notion_DB"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>notion_db <span class="op">=</span> loader.load()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="define-splitter-2" class="level2">
+<h2 class="anchored" data-anchor-id="define-splitter-2">Define splitter</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>text_splitter <span class="op">=</span> CharacterTextSplitter(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    separator<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span>,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    chunk_size<span class="op">=</span><span class="dv">1000</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    chunk_overlap<span class="op">=</span><span class="dv">150</span>,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    length_function<span class="op">=</span><span class="bu">len</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="split-document-1" class="level2">
+<h2 class="anchored" data-anchor-id="split-document-1">Split document</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> text_splitter.split_documents(notion_db)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="inspect-data-2" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-data-2">Inspect data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(notion_db)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>1</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(docs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>2</li>
+</ul>
+</section>
+<section id="inspect-data-smaller" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-data-smaller">Inspect data {smaller}</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(docs[<span class="dv">0</span>].page_content)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Getting Started</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>👋 Welcome to Notion!</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>Here are the basics:</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span>  Click anywhere and just start typing</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span>  Hit <span class="in">`/`</span> to see all the types of content you can add - headers, videos, sub pages, etc.</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">Example sub page</span><span class="co">](https://www.notion.so/Example-sub-page-92f63253929d456bbf12cd696e21e045?pvs=21)</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span>  Highlight any text, and use the menu that pops up to **style** *your* ~~writing~~ <span class="in">`however`</span> <span class="co">[</span><span class="ot">you</span><span class="co">](https://www.notion.so/product)</span> like</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span>  See the <span class="in">`⋮⋮`</span> to the left of this checkbox on hover? Click and drag to move this line</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span>  Click the <span class="in">`+ New Page`</span> button at the bottom of your sidebar to add a new page</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span>  Click <span class="in">`Templates`</span> in your sidebar to get started with pre-built pages</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>This is a toggle block. Click the little triangle to see more useful tips!</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="co">[</span><span class="ot">Template Gallery</span><span class="co">](https://www.notion.so/181e961aeb5c4ee6915307c0dfd5156d?pvs=21)</span>: More templates built by the Notion community</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="token-splitting" class="level1">
+<h1>Token splitting</h1>
+<section id="basics" class="level2">
+<h2 class="anchored" data-anchor-id="basics">Basics</h2>
+<ul>
+<li><p>We can also split on token count explicity, if we want</p></li>
+<li><p>This can be useful because LLMs often have context windows designated in tokens</p></li>
+<li><p>Tokens are often ~4 characters.</p></li>
+</ul>
+</section>
+<section id="tokentextsplitter-1" class="level2">
+<h2 class="anchored" data-anchor-id="tokentextsplitter-1">TokenTextSplitter 1</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>text_splitter <span class="op">=</span> TokenTextSplitter(chunk_size<span class="op">=</span><span class="dv">1</span>, chunk_overlap<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>text1 <span class="op">=</span> <span class="st">"foo bar bazzyfoo"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>text_splitter.split_text(text1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>[‘foo’, ’ bar’, ’ b’, ‘az’, ‘zy’, ‘foo’]</li>
+</ul>
+</section>
+<section id="tokentextsplitter-2" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="tokentextsplitter-2">TokenTextSplitter 2</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>text_splitter <span class="op">=</span> TokenTextSplitter(chunk_size<span class="op">=</span><span class="dv">10</span>, chunk_overlap<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> text_splitter.split_documents(pages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>docs[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Document(page_content=‘MachineLearning-Lecture01 ’, metadata={‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture01.pdf’, ‘page’: 0})</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>pages[<span class="dv">0</span>].metadata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>{‘source’: ‘../docs/cs229_lectures/MachineLearning-Lecture01.pdf’, ‘page’: 0}</li>
+</ul>
+</section>
+</section>
+<section id="context-aware-splitting-with-markdown" class="level1">
+<h1>Context Aware Splitting with Markdown</h1>
+<section id="basics-1" class="level2">
+<h2 class="anchored" data-anchor-id="basics-1">Basics</h2>
+<ul>
+<li><p>Chunking aims to keep text with common context together.</p></li>
+<li><p>A text splitting often uses sentences or other delimiters to keep related text together but many documents (such as Markdown) have structure (headers) that can be explicitly used in splitting.</p></li>
+<li><p>We can use <code>MarkdownHeaderTextSplitter</code> to preserve header metadata in our chunks</p></li>
+</ul>
+</section>
+<section id="markdown-example" class="level2">
+<h2 class="anchored" data-anchor-id="markdown-example">Markdown example</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>markdown_document <span class="op">=</span> <span class="st">"""# Title</span><span class="ch">\n\n</span><span class="st"> </span><span class="ch">\</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="st">## Chapter 1</span><span class="ch">\n\n</span><span class="st"> </span><span class="ch">\</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="st">Hi this is Jim</span><span class="ch">\n\n</span><span class="st"> Hi this is Joe</span><span class="ch">\n\n</span><span class="st"> </span><span class="ch">\</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="st">### Section </span><span class="ch">\n\n</span><span class="st"> </span><span class="ch">\</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="st">Hi this is Lance </span><span class="ch">\n\n</span><span class="st"> </span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="st">## Chapter 2</span><span class="ch">\n\n</span><span class="st"> </span><span class="ch">\</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="st">Hi this is Molly"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="headers-to-split-on" class="level2">
+<h2 class="anchored" data-anchor-id="headers-to-split-on">Headers to split on</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>headers_to_split_on <span class="op">=</span> [</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"#"</span>, <span class="st">"Header 1"</span>),</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"##"</span>, <span class="st">"Header 2"</span>),</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"###"</span>, <span class="st">"Header 3"</span>),</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="markdownheadertextsplitter" class="level2">
+<h2 class="anchored" data-anchor-id="markdownheadertextsplitter">MarkdownHeaderTextSplitter</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>markdown_splitter <span class="op">=</span> MarkdownHeaderTextSplitter(</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    headers_to_split_on<span class="op">=</span>headers_to_split_on</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="split-text" class="level2">
+<h2 class="anchored" data-anchor-id="split-text">Split text</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>md_header_splits <span class="op">=</span> markdown_splitter.split_text(markdown_document)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>md_header_splits[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Document(page_content=‘Hi this is Jim this is Joe’, metadata={‘Header 1’: ‘Title’, ‘Header 2’: ‘Chapter 1’})</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>md_header_splits[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Document(page_content=‘Hi this is Lance’, metadata={‘Header 1’: ‘Title’, ‘Header 2’: ‘Chapter 1’, ‘Header 3’: ‘Section’})</li>
+</ul>
+</section>
+</section>
+<section id="splitting-notion-markdown" class="level1">
+<h1>Splitting Notion Markdown</h1>
+<section id="load-data-1" class="level2">
+<h2 class="anchored" data-anchor-id="load-data-1">Load data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>loader <span class="op">=</span> NotionDirectoryLoader(<span class="st">"../docs/Notion_DB"</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> loader.load()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="join-data" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="join-data">Join data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>txt <span class="op">=</span> <span class="st">' '</span>.join([d.page_content <span class="cf">for</span> d <span class="kw">in</span> docs])</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>‘# Getting Started👋 Welcome to Notion!are the basics:- [ ] Click anywhere and just start typing- [ ] Hit <code>/</code> to see all the types of content you can add - headers, videos, sub pages, etc.(https://www.notion.so/Example-sub-page-92f63253929d456bbf12cd696e21e045?pvs=21)- [ ] Highlight any text, and use the menu that pops up to <strong>style</strong> <em>your</em> <del>writing</del> <code>however</code> <a href="https://www.notion.so/product">you</a> like- [ ] See the <code>⋮⋮</code> to the left of this checkbox on hover? Click and drag to move this line- [ ] Click the <code>+ New Page</code> button at the bottom of your sidebar to add a new page- [ ] Click <code>Templates</code> in your sidebar to get started with pre-built pages- This is a toggle block. Click the little triangle to see more useful tips!- <a href="https://www.notion.so/181e961aeb5c4ee6915307c0dfd5156d?pvs=21">Template Gallery</a>: More templates built by the Notion community- <a href="https://www.notion.so/e040febf70a94950b8620e6f00005004?pvs=21">Help &amp; Support</a>: ****Guides and FAQs for everything in Notion- Stay organized with your sidebar and nested pages:<img src="Getting Started 95e5ecbe48c44e408ef09fed850fbd40/infinitehierarchynodither.gif" class="img-fluid" alt="Getting%20Started%2095e5ecbe48c44e408ef09fed850fbd40/infinitehierarchynodither.gif">it in action:(https://youtu.be/TL_N2pmh9O0) minute(https://youtu.be/FXIrojSK3Jo) minutes(https://youtu.be/2Pwzff-uffU) minutes(https://youtu.be/O8qdvSxDYNY) minutesour <a href="http://youtube.com/c/notion">YouTube channel</a> to watch 50+ more tutorials👉<strong>Have a question?</strong> Click the <code>?</code> at the bottom right for more guides, or to send us a message.’</li>
+</ul>
+</section>
+<section id="define-splitter-3" class="level2">
+<h2 class="anchored" data-anchor-id="define-splitter-3">Define Splitter</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>headers_to_split_on <span class="op">=</span> [</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"#"</span>, <span class="st">"Header 1"</span>),</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"##"</span>, <span class="st">"Header 2"</span>),</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>markdown_splitter <span class="op">=</span> MarkdownHeaderTextSplitter(</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    headers_to_split_on<span class="op">=</span>headers_to_split_on</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="split-text-1" class="level2">
+<h2 class="anchored" data-anchor-id="split-text-1">Split text</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>md_header_splits <span class="op">=</span> markdown_splitter.split_text(txt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="output" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="output">Output</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>md_header_splits[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© <a href="https://www.kirenz.com/">Jan Kirenz</a>, 2023</div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../slide.html">Slides</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../requirements.html">Requirements</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../assignments.html">Assignments</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://moodle.hdm-stuttgart.de/login/index.php">
+      <i class="bi bi-person-circle" role="img" aria-label="Moodle">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>
