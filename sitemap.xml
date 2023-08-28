@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/requirements.html</loc>
-    <lastmod>2023-08-27T15:33:12.652Z</lastmod>
+    <loc>https://github.com/kirenz/lab-langchain-rag/requirements.html</loc>
+    <lastmod>2023-08-28T08:05:15.332Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/slides/01_document_loading.html</loc>
-    <lastmod>2023-08-27T15:33:10.652Z</lastmod>
+    <loc>https://github.com/kirenz/lab-langchain-rag/slides/01_document_loading.html</loc>
+    <lastmod>2023-08-28T08:05:13.772Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/slides/03_vectorstores_and_embeddings.html</loc>
-    <lastmod>2023-08-27T15:33:08.692Z</lastmod>
+    <loc>https://github.com/kirenz/lab-langchain-rag/slides/03_vectorstores_and_embeddings.html</loc>
+    <lastmod>2023-08-28T08:05:12.260Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/slides/06_chat.html</loc>
-    <lastmod>2023-08-27T15:33:06.084Z</lastmod>
+    <loc>https://github.com/kirenz/lab-langchain-rag/slides/06_chat.html</loc>
+    <lastmod>2023-08-28T08:05:09.968Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/docs/Notion_DB/Getting Started 95e5ecbe48c44e408ef09fed850fbd40.html</loc>
-    <lastmod>2023-08-27T15:33:04.880Z</lastmod>
+    <loc>https://github.com/kirenz/lab-langchain-rag/docs/Notion_DB/Getting Started 95e5ecbe48c44e408ef09fed850fbd40.html</loc>
+    <lastmod>2023-08-28T08:05:08.004Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/assignments.html</loc>
-    <lastmod>2023-08-27T15:33:04.052Z</lastmod>
+    <loc>https://github.com/kirenz/lab-langchain-rag/assignments.html</loc>
+    <lastmod>2023-08-28T08:05:07.320Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/slide.html</loc>
-    <lastmod>2023-08-27T15:33:03.312Z</lastmod>
+    <loc>https://github.com/kirenz/lab-langchain-rag/slide.html</loc>
+    <lastmod>2023-08-28T08:05:05.692Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/index.html</loc>
-    <lastmod>2023-08-27T15:33:04.468Z</lastmod>
+    <loc>https://github.com/kirenz/lab-langchain-rag/index.html</loc>
+    <lastmod>2023-08-28T08:05:07.672Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/code/notebook.html</loc>
-    <lastmod>2023-08-27T15:33:05.268Z</lastmod>
+    <loc>https://github.com/kirenz/lab-langchain-rag/code/notebook.html</loc>
+    <lastmod>2023-08-28T08:05:08.312Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/slides/05_question_answering.html</loc>
-    <lastmod>2023-08-27T15:33:07.892Z</lastmod>
+    <loc>https://github.com/kirenz/lab-langchain-rag/slides/05_question_answering.html</loc>
+    <lastmod>2023-08-28T08:05:11.604Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/slides/02_document_splitting.html</loc>
-    <lastmod>2023-08-27T15:33:09.916Z</lastmod>
+    <loc>https://github.com/kirenz/lab-langchain-rag/slides/02_document_splitting.html</loc>
+    <lastmod>2023-08-28T08:05:13.232Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/kirenz/lab-langchain-intro/slides/04_retrieval.html</loc>
-    <lastmod>2023-08-27T15:33:11.828Z</lastmod>
+    <loc>https://github.com/kirenz/lab-langchain-rag/slides/04_retrieval.html</loc>
+    <lastmod>2023-08-28T08:05:14.684Z</lastmod>
   </url>
 </urlset>
