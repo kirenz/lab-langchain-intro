@@ -826,46 +826,53 @@
     "text": "The following tutorials are mainly based on the excellent course “LangChain: Chat with Your DataI” provided by Harrison Chase from LangChain and Andrew Ng from DeepLearning.AI and cover the following topics:"
   },
   {
+    "objectID": "slide.html#what-is-retrieval-augmented-generation-rag",
+    "href": "slide.html#what-is-retrieval-augmented-generation-rag",
+    "title": "Slides",
+    "section": "1 What is Retrieval-Augmented Generation (RAG)?",
+    "text": "1 What is Retrieval-Augmented Generation (RAG)?\n\n\nLarge language models usually give great answers, but because they’re limited to the training data used to create the model, over time they can become incomplete–or worse, generate answers that are just plain wrong. One way of improving the LLM results is called “retrieval-augmented generation” or RAG.\nIn this video, IBM Senior Research Scientist Marina Danilevsky explains the LLM/RAG framework and how this combination delivers two big advantages, namely: the model gets the most up-to-date and trustworthy facts, and you can see where the model got its info, lending more credibility to what it generates."
+  },
+  {
     "objectID": "slide.html#document-loading",
     "href": "slide.html#document-loading",
     "title": "Slides",
-    "section": "1 Document Loading",
-    "text": "1 Document Loading\nLearn the fundamentals of data loading and discover over 80 unique loaders LangChain provides to access diverse data sources, including audio and video:\n\n\n\n\n\n\n\n🖥️ Presentation\n💻 Jupyter Notebook"
+    "section": "2 Document Loading",
+    "text": "2 Document Loading\nLearn the fundamentals of data loading and discover over 80 unique loaders LangChain provides to access diverse data sources, including audio and video:\n\n\n\n\n\n\n\n🖥️ Presentation\n💻 Jupyter Notebook"
   },
   {
     "objectID": "slide.html#document-splitting",
     "href": "slide.html#document-splitting",
     "title": "Slides",
-    "section": "2 Document Splitting",
-    "text": "2 Document Splitting\nIn the context of building LLM-related applications, splitting is the process of breaking down large pieces of text into smaller segments:\n\n\n\n\n\n\n\n🖥️ Presentation\n💻 Jupyter Notebook"
+    "section": "3 Document Splitting",
+    "text": "3 Document Splitting\nIn the context of building LLM-related applications, splitting is the process of breaking down large pieces of text into smaller segments:\n\n\n\n\n\n\n\n🖥️ Presentation\n💻 Jupyter Notebook"
   },
   {
     "objectID": "slide.html#vector-stores-and-embeddings",
     "href": "slide.html#vector-stores-and-embeddings",
     "title": "Slides",
-    "section": "3 Vector stores and embeddings",
-    "text": "3 Vector stores and embeddings\nLearn the concept of embeddings and explore vector store integrations within LangChain.\n\n\n\n\n\n\n\n🖥️ Presentation\n💻 Jupyter Notebook"
+    "section": "4 Vector stores and embeddings",
+    "text": "4 Vector stores and embeddings\nLearn the concept of embeddings and explore vector store integrations within LangChain.\n\n\n\n\n\n\n\n🖥️ Presentation\n💻 Jupyter Notebook"
   },
   {
     "objectID": "slide.html#retrieval",
     "href": "slide.html#retrieval",
     "title": "Slides",
-    "section": "4 Retrieval",
-    "text": "4 Retrieval\nLearn advanced techniques for accessing and indexing data in the vector store, enabling you to retrieve the most relevant information beyond semantic queries:\n\n\n\n\n\n\n\n🖥️ Presentation\n💻 Jupyter Notebook"
+    "section": "5 Retrieval",
+    "text": "5 Retrieval\nLearn advanced techniques for accessing and indexing data in the vector store, enabling you to retrieve the most relevant information beyond semantic queries:\n\n\n\n\n\n\n\n🖥️ Presentation\n💻 Jupyter Notebook"
   },
   {
     "objectID": "slide.html#question-answering",
     "href": "slide.html#question-answering",
     "title": "Slides",
-    "section": "5 Question Answering",
-    "text": "5 Question Answering\nBuild a one-pass question-answering solution.\n\n\n\n\n\n\n\n🖥️ Presentation\n💻 Jupyter Notebook"
+    "section": "6 Question Answering",
+    "text": "6 Question Answering\nBuild a one-pass question-answering solution.\n\n\n\n\n\n\n\n🖥️ Presentation\n💻 Jupyter Notebook"
   },
   {
     "objectID": "slide.html#chat-system",
     "href": "slide.html#chat-system",
     "title": "Slides",
-    "section": "6 Chat System",
-    "text": "6 Chat System\nLearn how to track and select pertinent information from conversations and data sources, as you build your own chatbot using LangChain.\n\n\n\n\n\n\n\n🖥️ Presentation\n💻 Jupyter Notebook"
+    "section": "7 Chat System",
+    "text": "7 Chat System\nLearn how to track and select pertinent information from conversations and data sources, as you build your own chatbot using LangChain.\n\n\n\n\n\n\n\n🖥️ Presentation\n💻 Jupyter Notebook"
   },
   {
     "objectID": "assignments.html",
