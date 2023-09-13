@@ -14,6 +14,16 @@ Take a look at the [slides tutorial](https://kirenz.github.io/lab-toolkit/slides
 To download Jupyter Notebooks: Go to the Colab menu and choose "File" > "Download" > "Download .ipynb"
 :::
 
+## What is Retrieval-Augmented Generation (RAG)?
+
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/T-D1OfcDW1M?si=E491V0ebqfGxV5UZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+Large language models usually give great answers, but because they're limited to the training data used to create the model, over time they can become incomplete--or worse, generate answers that are just plain wrong. One way of improving the LLM results is called "retrieval-augmented generation" or RAG. 
+
+In this video, IBM Senior Research Scientist Marina Danilevsky explains the LLM/RAG framework and how this combination delivers two big advantages, namely: the model gets the most up-to-date and trustworthy facts, and you can see where the model got its info, lending more credibility to what it generates.
+
+
 
 ## Document Loading
 
