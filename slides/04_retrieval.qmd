@@ -535,6 +535,6 @@ docs_tfidf[0]
 **Congratulations! You have completed this tutorial** 👍
 
 
-**Next, you may want to go back to the [lab's website](https://kirenz.github.io/lab-langchain-intro/)**
+**Next, you may want to go back to the [lab's website](https://kirenz.github.io/lab-langchain-rag/)**
 
 
